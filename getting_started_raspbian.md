@@ -1,4 +1,4 @@
-## Instructions to Download Raspbian in windows
+## Create a Raspian SD-Card from a Windows 10 Machine
 
 * Download the Raspbian Stretch with Desktop from <https://www.raspberrypi.org/downloads/>
 * Insert a SD-card and then format using SD Memory Card Formatter. Download from 
