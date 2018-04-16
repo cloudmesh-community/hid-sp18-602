@@ -1,0 +1,41 @@
+swagger: "2.0"
+info: 
+  version: "0.0.1"
+  title: "OpenStack_Glance"
+  description: "A simple service to get list of images in OpenStack glance"
+  termsOfService: "http://swagger.io/terms/"
+  contact: 
+    name: "Openstack_imageservice example"
+  license: 
+    name: "Apache"
+host: "localhost:8080"
+basePath: "/api"
+schemes: 
+  - "http"
+consumes: 
+  - "application/json"
+produces: 
+  - "application/json"
+paths: 
+  /list_images:
+    get: 
+      summary: "Get list of images stored in glance"
+      description: " "
+      produces: 
+        - "application/json"
+      parameters: []
+      responses: 
+        200:
+          description: "images list"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/list_images"
+definitions:
+  list_images:
+    type: "object"
+    required: 
+      - "model"
+    properties: 
+      model:
+        type: "string"
