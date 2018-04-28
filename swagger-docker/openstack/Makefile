@@ -1,5 +1,6 @@
 SWAGGERCODEGEN=java -jar swagger-codegen-cli-2.3.1.jar
 YAMLFILE=swagger.yaml
+CONFIGFILE=admin-openrc.sh
 DESTDIR=server/glance/flaskConnexion
 CREATED=server
 
@@ -38,7 +39,7 @@ docker-clean: docker-stop docker-remove
 
 dest:
 	mkdir -p $(DESTDIR)
-	 
+
 service: dest
 	@echo "creating the service..."
 	wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar
@@ -47,19 +48,19 @@ service: dest
 	-l python-flask \
 	-o $(DESTDIR) \
 	-D supportPython3=true
-	
 	rm *.jar
+
 	pip install python-openstackclient
 	pip install python-glanceclient
 	pip install python-keystoneclient
 
 	cp -r *.py $(DESTDIR)/swagger_server/controllers
-	
+	cp $(CONFIGFILE) $(DESTDIR)/swagger_server/controllers
+	cd $(DESTDIR)/swagger_server/controllers && source admin-openrc.sh
+
+
 	cd $(DESTDIR) && pip install -r requirements.txt && \
-	python setup.py install 
-	source admin-openrc.sh
-	
-	
+	python setup.py install
 
 start:  
 	@echo "starting the service..."
@@ -68,7 +69,7 @@ start:
 test:
 	curl http://localhost:8080/api/list_images/
 
-            
+
 stop:
 	@echo "stopping the service"
 	ps -ef | grep swagger_server | grep -v "grep" | awk '{print $$2}' | xargs kill -9
