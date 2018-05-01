@@ -1,29 +1,29 @@
 .PHONY: all
-all: redis webapp worker
+all: backend frontend main
 
 .PHONY: delete
-delete: delete-redis delete-webapp delete-worker
+delete: delete-backend delete-frontend delete-main
 
-.PHONY: redis
+.PHONY: backend
 redis:
-	$(MAKE) -C redis all
+	$(MAKE) -C backend all
 
-.PHONY: webapp
+.PHONY:  frontend
 webapp:
-	$(MAKE) -C webapp all
+	$(MAKE) -C frontend all
 
-.PHONY: worker
+.PHONY: main
 worker:
-	$(MAKE) -C worker all
+	$(MAKE) -C main all
 
-.PHONY: delete-redis
+.PHONY: delete-backend
 delete-redis:
-	$(MAKE) -C redis delete
+	$(MAKE) -C backend delete
 
-.PHONY: delete-webapp
+.PHONY: delete-frontend
 delete-webapp:
-	$(MAKE) -C webapp delete
+	$(MAKE) -C frontend delete
 
-.PHONY: delete-worker
+.PHONY: delete-main
 delete-worker:
-	$(MAKE) -C worker delete
+	$(MAKE) -C main delete
