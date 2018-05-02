@@ -5,16 +5,16 @@ all: backend frontend main
 delete: delete-backend delete-frontend delete-main
 
 .PHONY: backend
-redis:
+backend:
 	$(MAKE) -C backend all
 
-.PHONY:  frontend
-webapp:
+.PHONY: frontend
+frontend:
 	$(MAKE) -C frontend all
 
 .PHONY: main
-worker:
-	$(MAKE) -C main all
+main:
+	$(MAKE) -C mainapp all
 
 .PHONY: delete-backend
 delete-redis:

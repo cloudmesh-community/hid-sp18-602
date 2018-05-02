@@ -115,13 +115,12 @@ def query_api(term, location):
         print(u'No businesses for {0} in {1} found.'.format(term, location))
         return
 
+    photos= []
+
     for i in businesses: 
 	business_id = i['id']
 	response = get_business(API_KEY, business_id)
-        photos.append(response.get('photos'))
+        for pics in response.get('photos'):
+		photos.append(pics.encode('utf8'))
 
     return photos
-
-
-if __name__ == '__main__':
-    main()

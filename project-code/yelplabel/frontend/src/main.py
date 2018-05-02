@@ -41,7 +41,7 @@ def label(label):
 
 @app.route('/start_crawler', methods=['POST'])
 def start_crawler():
-    q.enqueue('main.get_images',"Sanfransico,Bay Area" ,"food")
+    q.enqueue('main.get_images','food','San Francisco')
     return render_template('crawler_started.html')
 
 

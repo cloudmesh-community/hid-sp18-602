@@ -1,21 +1,21 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: yelplabel-main
+  name: yelplabel-mainapp
 spec:
   replicas: 3
   template:
     metadata:
       labels:
         app: yelplabel
-        role: main
+        role: mainapp
     spec:
       containers:
-      - name: yelplabel-main
-        image: gcr.io/$GCLOUD_PROJECT/yelplabel
+      - name: yelplabel-mainapp
+        image: gcr.io/vaulted-timing-201804/yelplabel-mainapp
         imagePullPolicy: Always
         env:
         - name: GCLOUD_PROJECT
-          value: $GCLOUD_PROJECT
+          value: vaulted-timing-201804
         - name: REDIS_HOST
           value: redis-master
