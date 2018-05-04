@@ -26,14 +26,11 @@ class Storage(object):
 
         self.redis = StrictRedis(host, port, *args, **kwargs)
 
-    def add_labels(self, labels):
-        self.redis.sadd('labels', *labels)
+    def add_labels(self, label):
+        self.redis.sadd('labels', label)
 
-    def add_image(self, image_url, labels):
-        p = self.redis.pipeline()
-
-        for label in labels:
-            p.sadd(label, image_url)
+    def add_image(self, image_url, label):
+	    p.sadd(label, image_url)
             p.setnx('repr_img:{}'.format(label), image_url)
 
         p.execute()

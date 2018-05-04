@@ -11,11 +11,11 @@ spec:
         role: worker
     spec:
       containers:
-      - name: yelplabel-mainapp
-        image: gcr.io/vaulted-timing-201804/yelplabel-mainapp
+      - name: yelplabel-main
+        image: gcr.io/$GCLOUD_PROJECT/yelplabel-mainapp
         imagePullPolicy: Always
         env:
         - name: GCLOUD_PROJECT
-          value: vaulted-timing-201804
+          value: $GCLOUD_PROJECT
         - name: REDIS_HOST
           value: redis-master

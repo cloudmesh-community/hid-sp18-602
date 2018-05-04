@@ -21,39 +21,20 @@ from storage import Storage
 from vision import VisionApi
 
 
-def download_image(image_url):
-    r = requests.get(image_url)
-    r.raise_for_status()
-    return r.content
-
-
-def label_images(vision, storage, image_urls):
-    image_contents = [
-        download_image(image_url)
-        for image_url
-        in image_urls]
-
-    # TODO content check
-
-    response = vision.detect_labels(image_contents)
-
-    for image_url, labels in zip(image_urls, response):
-        storage.add_labels(labels)
-        storage.add_image(image_url, labels)
-
-
 def label_images_task(image_urls):
     vision = VisionApi()
     storage = Storage()
 
-    label_images(vision, storage, image_urls)
+	for image_url in image_urls:
+		image_content=request.get(image_url)
+                label=vision.detect_labels(image_content)
+                storage.add_labels(label)
+                storage.add_image(image_url,label)
 
 
-def get_images(term,location):
+def get_yelp_images(term,location):
     for image_urls in query_api(term, location):
         q = psq.Queue(pubsub.Client(), 'images')
         q.enqueue('main.label_images_task', image_urls)
-        print("Enqueued {} images".format(len(image_urls)))
-
 
 q = psq.Queue(pubsub.Client(), 'images')
