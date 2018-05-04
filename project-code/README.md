@@ -1,10 +1,10 @@
 status: 70%
 
-##Acknowledgement 
+## Acknowledgement 
 
 * Thanks to Professor Gregor Von Laszewski for support and guidance to do this project. 
 
-##Description:
+## Description:
 
 The main purpose of the porject is to understad the Microservices architecture using Kubernetes. In order to achieve this, an application
 to label images from Yelp photos dataset is built.
@@ -22,21 +22,9 @@ to label images from Yelp photos dataset is built.
 The project is done using Cloud Shell in Google Cloud Platform. In order to build the porject on Google console it is required to download 
 Cloud SDK, intialize gcloud command-line tool and set Authentication in order to make use of Google API's.
 
-## Initial Setup
+## Project Setup
 
-* Create a Container Engine
-
-	```gcloud config set compute/zone us-east1-f```
-
-* Create a cluster using gcloud
-
- 	```gcloud container clusters create yelplabel --num-nodes 2 --scopes cloud-platform```
-	
-* Set up the kubectl command-line tool to use the container's credentials
-
- ```gcloud container clusters get-credentials yelplabel```
-
-* Enter the yelplabel directory, and run the command. This will build Docker images and create pods,services,deployments for all the 3 microservices
+* Enter the yelplabel directory, and run the command.
 
    ``` make all ```
 
@@ -52,7 +40,7 @@ Cloud SDK, intialize gcloud command-line tool and set Authentication in order to
 
 * It takes some time to retreive all the data from yelp and label them using Vision API. After, few minutes, the browser will be populated with labeled photos from yelp dataset
 
-##References
+## References
 
 https://classroom.udacity.com/courses/ud615
 
