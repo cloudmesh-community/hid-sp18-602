@@ -31,9 +31,3 @@ class Storage(object):
 
     def get_images(self, label):
         return self.redis.smembers(label)
-
-    def get_repr_image_for_labels(self, labels):
-        if not labels:
-            return {}
-        keys = [u'repr_img:{}'.format(label) for label in labels]
-        return dict(zip(labels, self.redis.mget(*keys)))

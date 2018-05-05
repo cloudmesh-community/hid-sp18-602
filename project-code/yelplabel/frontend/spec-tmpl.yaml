@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: yelplabel-frontend
-        image: gcr.io/vaulted-timing-201804/yelplabel-frontend
+        image: gcr.io/$GCLOUD_PROJECT/yelplabel-frontend
         imagePullPolicy: Always
         env:
         - name: PORT
@@ -38,7 +38,7 @@ spec:
         - name: REDIS_HOST
           value: redis-master
         - name: GCLOUD_PROJECT
-          value: vaulted-timing-201804
+          value: $GCLOUD_PROJECT
         ports:
         - name: http-server
           containerPort: 8080

@@ -29,19 +29,12 @@ q = psq.Queue(pubsub.Client(), 'images')
 @app.route('/')
 def index():
     labels = storage.get_labels()
-    labels_and_images = storage.get_repr_image_for_labels(labels)
-    return render_template('index.html', labels=labels_and_images)
-
-
-@app.route('/label/<label>')
-def label(label):
-    images = storage.get_images(label)
-    return render_template('label.html', images=images)
-
+    annotated_images = storage.get_images(labels)
+    return render_template('index.html', annotated_images=annotated_images)
 
 @app.route('/start_crawler', methods=['POST'])
 def start_crawler():
-    q.enqueue('main.get_images','food','San Francisco')
+    q.enqueue('main.get_yelp_images','food','San Francisco')
     return render_template('crawler_started.html')
 
 

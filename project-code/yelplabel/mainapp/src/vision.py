@@ -24,40 +24,31 @@ class VisionApi(object):
     def __init__(self):
         self.vision = self._create_client()
 
+
     def _create_client(self):
         credentials = GoogleCredentials.get_application_default()
         return discovery.build(
             'vision', 'v1', credentials=credentials,
             discoveryServiceUrl=DISCOVERY_URL)
 
-    def detect_labels(self, images, max_results=2, num_retries=3):
-        """Uses the Vision API to detect text in the given file.
-        """
 
-        batch_request = []
 
-        for image in images:
-            batch_request.append({
-                'image': {
-                    'content': base64.b64encode(image).decode('UTF-8')
-                },
-                'features': [{
-                    'type': 'LABEL_DETECTION',
-                    'maxResults': max_results,
-                }]
-            })
+    def detect_labels(self, image,num_retries=3):
+        """Uses the Vision API to annotate  image  """
 
-        request = self.vision.images().annotate(
-            body={'requests': batch_request})
+            request = self.vision.images().annotate(
+            body={'requests': [{
+			'image': {
+                   		 'content': base64.b64encode(image).decode('UTF-8')
+               		 },
+                	'features': [{
+                    		 'type': 'LABEL_DETECTION',
+                   		 'maxResults': 1,
+               		 }]
+        	    }]
+        	})
 
         response = request.execute(num_retries=num_retries)
+	label=response.get('labelAnnotations')['description']
 
-        label_responses = []
-
-        for r in response['responses']:
-            labels = [
-                x['description'] for x in r.get('labelAnnotations', [])]
-
-            label_responses.append(labels)
-
-        return label_responses
+	return label
