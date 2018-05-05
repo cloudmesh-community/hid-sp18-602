@@ -37,6 +37,8 @@
 
 \section{Introduction}
 
+\TODO{Title unclear}
+
 With the growing complexity of applications, not just the
 functionality wise but also the data generated and used, it highly
 important to leverage the application in various aspects such that
@@ -233,7 +235,11 @@ functionalities is explained below along with intial setup.
 
 \subsubsection{Initial Setup} 
 
-As mentioned above, the application requires 2 important API cloud
+As mentioned above, 
+
+\TODO{User ref and label from latex, also check grammar in thsi section}
+
+the application requires 2 important API cloud
 vision API and Pub/Sub API, which have to enabled for the specific
 project id, the application would be started, in google cloud
 console. The best part for a software developer to test the working
@@ -242,8 +248,8 @@ it doesn’t require authentication setup.  For Cloud SDK installed on
 the local environment, setting up the authentication is crucial. For
 this, it is first required to create a service account and download
 service account key which is usually in JSON file format. Then set the
-environment variable \(GOOGLE\_APPLICATION\_CREDENTIALS = [PATH]\),
-where Path is the file path of the JSON file downloaded from Google
+environment variable \verb|GOOGLE_APPLICATION_CREDENTIALS = [PATH]|,
+where \verb|PATH| is the file path of the JSON file downloaded from Google
 Console Dashboard.
 
 \subsubsection{Frontend Microservices} 
