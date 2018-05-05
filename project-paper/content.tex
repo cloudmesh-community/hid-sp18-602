@@ -224,10 +224,31 @@ classification of test data set is determined. However, this feature
 of Cloud AutoML is accessible to only limited customers, but the basic
 feature of labeling the images such as data in Google is quite
 possible through REST API and are available to use in different
-programming languages.  Redis is open source in memory database and is
-useful as database, cache and message broker. It has different data
-structures, remote, persistent and scalable to address wide variety of
-problems~\cite{hid-sp18-602-cloud-vision}.
+programming languages~\cite{hid-sp18-602-cloud-vision}.
+
+\subsubsection{Redis}
+
+Redis is open source in memory database and is useful as database,
+cache and message broker. It has different data structures, remote,
+persistent and scalable to address wide variety of
+problems~\cite{hid-sp18-602-redis}. The redis-cli command line tool
+allows to run command and get details of the clients link to
+redis-database, configuration and monitor command allows to check how
+server is responding to requests from client to read or wrtie
+data. The redis-py package is a python implemenation to interact with
+Redis storage. With popularity of Kubernetes, The Redis-Enterprise
+version is exclusively built to use with kubernetes. The documentation
+provides easy steps to create Redis cluster and link with one or more
+pods running on the kubernetes. All the features of kubernetes to
+replicate, scale and assign port are leveraged to Redis-cluter, this
+is gives immense opportunity to work with multiple pods, connecting to
+one-single redis cluster, along with a private redis container on each
+of the pods. Another main reason for extending redis to kubernets is
+the increase in usage of its docker image hosted in docker.hub public
+repository. In this project StrictRedis class of Redis is used to
+connect with Redis backend storage. It gives access to simple
+functions like sadd,smemeber,sget to get and set key-value pair
+objects in-memory database of redis~\cite{hid-sp18-602-redis}.
 
 \subsection{Yelp Dataset}
 
