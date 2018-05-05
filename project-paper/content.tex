@@ -274,6 +274,8 @@ pair.
 
 \subsubsection{Mainapp Microservice} 
 
+\TODO{Please use verb|code fragments| and not $code fragments$}
+
 The mainapp provides the actual functionality of the application,
 starting from scraping the data to generating the desired output. The
 major functionalities involved in the service is briefly discussed.
@@ -335,6 +337,11 @@ application is up and running.
 \subsubsection{Challenges} 
 
 Selecting the right technologies is adebatable in learning process,
+
+\TODO{rewrite without phrase learning process, this sounds it is just
+  an educational project and minimized your results. Or is it just a
+  toy project?} 
+
 this application can be implemented with Google Bucket Storage instead
 of Redis as it also satisfies with key-value kind of storage
 system. The debug aspect is the challenge because of the layers of
@@ -343,6 +350,24 @@ works fine if there exists an error within one of the microservices,
 which gets hard to figure out at times. To an extent we can make use
 of kubectl logs and google cloud provide error report.
   
+\section{Results}
+
+\TODO{Is there any Result?}
+
+\subsection{Benchmark}
+
+\TODO{Include the benchmarks}
+
+\subsubsection{Deployment Benchmark}
+
+report how long it takes to deploy
+
+\subsubsection{Runtime Benchmark}
+
+report on how long the analysis takes
+
+
+
 \section{Conclusion}
 
 Thus application to scrape data from yelp-fusion API and detect label
