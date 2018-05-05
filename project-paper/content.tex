@@ -369,16 +369,19 @@ the load-balancer for the application, so on request the traffic is
 diverted to other services within the internal port and the entire
 application is up and running.
   
-\subsection{Challenges} 
+\subsection{Challenges}
 
-Selecting the right technologies is adebatable in learning process,
-this application can be implemented with Google Bucket Storage instead
-of Redis as it also satisfies with key-value kind of storage
-system. The debug aspect is the challenge because of the layers of
-abstraction over the microservices, the deployments and everything
-works fine if there exists an error within one of the microservices,
-which gets hard to figure out at times. To an extent we can make use
-of kubectl logs and google cloud provide error report.
+As there are lot of advanced technology out which share same sort of
+features it is debatable to choose the right technology stack in order
+to develop an application, that atleast meet the requirements and
+dvelopemnt practices mentioned in 12app-factor. For instance, this
+application can be implemented with Google Bucket Storage instead of
+Redis as it also satisfies with key-value kind of storage system.  The
+debug aspect is the challenge because of the layers of abstraction
+over the microservices, the deployments and everything works fine if
+there exists an error within one of the microservices, which gets hard
+to figure out at times. To an extent we can make use of kubectl logs
+and google cloud provide error report.
   
 \section{Results}
 
