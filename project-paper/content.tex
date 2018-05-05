@@ -67,28 +67,34 @@ application.
 Modern applications are often built using different technologies with
 different versions based on the application requirement. Deploying
 many such application on a single Operating System could be a huge
-risk at times when there is a requirement of different versions of the
-same dependency. For instance, if you consider installing 2 versions
-of Nginx on the same OS, there would be a conflict with the namespace,
-network port making it logically cumbersome to do so. Although the
-concept of containerization is old, the ability to package
-applications with their dependencies into the container, making
-applications independent and isolated from other applications is huge
-progress to deploy. So it becomes very easy to run multiple containers
-using Docker. The docker image which is a snapshot of the container is
-the basis to build a container. The Docker container image is a
-packaging format that contains not only the application but also all
-the dependencies and runtime information. These images are hosted on
-public or private repository such as docker.hub, google storage.
-There are 2 ways to start of with the docker image Dockerfile,
-previous docker image. Once the docker image is ready it takes simple
-commands listed below to build the container, push the final docker
-image to the storage repository, and pull the docker image whenever
-required. Thus, it is easy and robust to create, distribute and run
-applications using Docker Containers with docker images and docker
-command-line tools. There are less or no restrictions for docker
-usage, as containers can be built on any machine with Docker installed
-it is highly in use by DevOps~\cite{hid-sp18-602-docker}.
+risk at times especially when there is a conflict in dependencies
+between applications. For instance, if you consider installing 2
+versions of Nginx on the same OS, there would be a conflict with the
+namespace, network port making it logically cumbersome to install same
+soaftware with 2 different versions. Although the concept of
+containerization is old, the ability to package applications with
+their dependencies into the container, making applications independent
+and isolated from other applications is huge progress to deploy
+applications, this is achieved with Docker container
+technology. Morover,it is very easy to run multiple containers using
+Docker. The docker image which is a snapshot of the container is the
+basis to build a container. The Docker container image is a packaging
+format that contains all the dependencies necessary for the
+application along with required intial steps such a swtting
+environment variables, or even running command to start the
+application. These images are hosted on public or private repository
+such as docker.hub, google storage.  There are 2 ways to build a
+docker image, first is to build Dockerfile, and the second way is make
+changes on previous docker image. In most cases, a Dockerfile is built
+on a base image that is useful for the application and then all the
+required dependecies,commnads are added. Once the docker image is
+ready it takes simple commands to build the container,push the final
+docker image to the storage repository, and pull the docker image
+whenever required. Thus, it is easy and robust to create, distribute
+and run applications using Docker Containers with docker images and
+docker command-line tools. There are less or no restrictions for
+docker usage, as containers can be built on any machine with Docker
+installed it is highly in use by DevOps~\cite{hid-sp18-602-docker}.
 
 \subsection{Kubernetes}
 
@@ -104,16 +110,18 @@ master nodes that keep on running despite explicitly deleting, and
 zero or more worker nodes~\cite{hid-sp18-602-kubernetes}. The master
 node is responsible for managing the cluster, whereas the worker nodes
 work like a VM, it consists of one or more pods, Volume, network ID
-and tools to handle container operations. A pod is the smallest unit
-of Kubernetes and it consists of one or more containers. All the
-containers in the pod have shared the same filesystem and IP address,
-this makes the communication between containers in a pod easy. Each of
-these pods created based on the scheme which is usually in YAML or
-JSON file format. The scheme covers important aspects of spec which
-specifies the Pod behavior, container name, container ports. A pod
-without Services or Replication Controller cannot be accessed by the
-external client, neither scaling and distribution of the application
-are possible ~\cite{hid-sp18-602-pods}.
+and tools to handle container operations.
+
+A pod is the smallest unit of Kubernetes and it consists of one or
+more containers. All the containers in the pod have shared the same
+filesystem and IP address, this makes the communication between
+containers in a pod easy. Each of these pods created based on the
+scheme which is usually in YAML or JSON file format. The scheme covers
+important aspects of spec which specifies the Pod behavior, container
+name, container ports. A pod without Services or Replication
+Controller cannot be accessed by the external client, neither scaling
+and distribution of the application are possible
+~\cite{hid-sp18-602-pods}.
 
 Services provide an external interface for one or more pods. The
 Service schema definition has 3 important parameters: kind, metadata,
@@ -125,26 +133,28 @@ name HTTP. The selector is the key mapping in the spec and specifies a
 mapping to be used for selecting the Pods to expose via the
 Service. Therefore, the service diverts the network traffic to all its
 pods with the same label as the label selector specified in the
-Service spec, in a round-robin manner. There are 3 different types
-of Service: Load Balancer, Internal IP, Node port. If a Service type
-is ClusterIP, then the service is accessible only within the cluster
-via its internal port. Whereas if the service type is Node port then
-the service is accessible from outside the node port, which further
-routes the traffic to internal port Cluster IP of the service, that is
+Service spec, in a round-robin manner. There are 3 different types of
+Service: Load Balancer, Internal IP, Node port. If a Service type is
+ClusterIP, then the service is accessible only within the cluster via
+its internal port. Whereas if the service type is Node port then the
+service is accessible from outside the node port, which further routes
+the traffic to internal port Cluster IP of the service, that is
 automatically created. Similarly Load Balancer service type also
 automatically creates Node port and cluster IP. It gives access for
 the external user to ping the IP. In addition to this Load Balancer
 has the responsibility to balance the load between all the Pods in
-Service~\cite{hid-sp18-602-services}. Another important aspect in
-scaling applications is Replication Controller, which manages the
-replication level of Pods by setting “replicas” in Replication
-Controller definition or on the command line with the –replicas
-parameter. This ensures that number of Pod replicas are running at any
-given time. If a replica fails or is stopped deliberately a new
-replica is started automatically. With these 2 crucial features
-scaling and replication factor, Kubernetes keep microservices up and
-running all the time. Hence, Kubernetes is production-ready, which
-provides dynamic container cluster orchestration in real time.
+Service~\cite{hid-sp18-602-services}.
+
+Another important aspect in scaling applications is Replication
+Controller, which manages the replication level of Pods by setting
+“replicas” in Replication Controller definition or on the command line
+with the –replicas parameter. This ensures that number of Pod replicas
+are running at any given time. If a replica fails or is stopped
+deliberately a new replica is started automatically. With these 2
+crucial features scaling and replication factor, Kubernetes keep
+microservices up and running all the time. Hence, Kubernetes is
+production-ready, which provides dynamic container cluster
+orchestration in real time.
 
 Kubernetes as a cluster manager provides the feasibility for deploying
 Microservices by breaking an application into smaller, manageable,
@@ -193,7 +203,7 @@ Cloud Pub/Sub, a powerful, scalable and reliable messaging tool,
 implemented using Python is used. It has features similar to rq,
 simpleq and celery. It forms the basis for communication between
 microservices, especially main application and
-frontend~\cite{hid-sp18-602-pub/sub}.
+frontend~\cite{hid-sp18-602-pub-sub}.
 
 \subsubsection{Cloud Vision API}
 
@@ -241,12 +251,8 @@ functionalities is explained below along with intial setup.
 
 \subsubsection{Initial Setup} 
 
-As mentioned above, 
-
-\TODO{User ref and label from latex, also check grammar in thsi section}
-
-the application requires 2 important API cloud
-vision API and Pub/Sub API, which have to enabled for the specific
+As mentioned above,the application requires 2 important API Cloud
+Vision API and Pub/Sub API, which have to enabled for the specific
 project id, the application would be started, in google cloud
 console. The best part for a software developer to test the working
 application is to launch directly using gcloud command-line tool, as
@@ -278,38 +284,40 @@ data is stored into redis instance via Mainapp and retrieved in
 frontend in order to populate the page with resulting images-label
 pair.
 
-\subsubsection{Mainapp Microservice} 
-
-\TODO{Please use verb|code fragments| and not $code fragments$}
+\subsubsection{Mainapp Microservice}
 
 The mainapp provides the actual functionality of the application,
 starting from scraping the data to generating the desired output. The
 major functionalities involved in the service is briefly discussed.
 The \verb|yelp_images.py| has 4 functions \verb|query_api()|,
-\verb|get_business()|, \verb|search()| and \verb|request()|; As the given location
-and term are passed to \verb|query_api|, it sends a GET request and as a
-result business id’s of at most 10 businesses are extracted from the
-response object. For each business id, a \verb|get_business()| is called
-to retrieve business details. From the response object of business
-details, photos are extracted. All the photos are returned to the
-calling function in main.py.  In vision.py, for image passed, a
-post request is sent to Vision API to annotate the image, in
-particular, label detection feature is requested. The response object
-consists of further details of the image such as score, confidence,
-location, and so on but we are mainly interested in the label which is
-a description parameter of string type. In storage.py, StrictRedis
-class is imported to instantiate redis object. The redis in memory
-storage is very useful because of it’s ability to store objects in
-key-value pair. Taking advantage of this all labels are stored with
-key labels and label-image pair is also stored. This makes very easy
-to retrieve data in the frontend service, by just simply looking for
-the associated imageurl for the label in the list of
-labels~\cite{hid-sp18-602-redis-implementation}.  To summarize,
-main.py brings together all the above functionalities, it retrieves
-the data from \verb|yelp_images.py|, passes photos to vision.py to label
-each one of them and stores using storage.py. As pub/sub enqueues
-the whole process in main.py, once the task is done, the frontend
-gets triggered.
+\verb|get_business()|, \verb|search()| and \verb|request()|; As the
+given location and term are passed to \verb|query_api|, it sends a GET
+request and as a result business id’s of at most 10 businesses are
+extracted from the response object. For each business id, a
+\verb|get_business()| is called to retrieve business details. From the
+response object of business details, photos are extracted. All the
+photos are returned to the calling function in main.py.
+
+In vision.py, for image passed, a post request is sent to Vision API
+to annotate the image, in particular, label detection feature is
+requested. The response object consists of further details of the
+image such as score, confidence, location, and so on but we are mainly
+interested in the label which is a description parameter of string
+type.
+
+In storage.py, StrictRedis class is imported to instantiate redis
+object. The redis in memory storage is very useful because of it’s
+ability to store objects in key-value pair. Taking advantage of this
+all labels are stored with key labels and label-image pair is also
+stored. This makes very easy to retrieve data in the frontend service,
+by just simply looking for the associated imageurl for the label in
+the list of labels~\cite{hid-sp18-602-redis-implementation}.
+
+To summarize, main.py brings together all the above functionalities,
+it retrieves the data from \verb|yelp_images.py|, passes photos to
+vision.py to label each one of them and stores using storage.py. As
+pub/sub enqueues the whole process in main.py, once the task is done,
+the frontend gets triggered.
   
 \subsubsection{Pods, Services, Deployments} 
 
@@ -340,7 +348,7 @@ the load-balancer for the application, so on request the traffic is
 diverted to other services within the internal port and the entire
 application is up and running.
   
-\subsubsection{Challenges} 
+\subsection{Challenges} 
 
 Selecting the right technologies is adebatable in learning process,
 this application can be implemented with Google Bucket Storage instead
