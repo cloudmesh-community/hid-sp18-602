@@ -29,7 +29,7 @@
   pushed to google private container registry.
 \end{abstract}
 
-\keywords{hid-sp18-602,google,cloud,automl,neural,search,network}
+\keywords{hid-sp18-602,docker,vision,kubernetes,yelp,redis,pub/sub}
 
 
 \maketitle
@@ -44,7 +44,7 @@ affected (Isolation), easy to be deployable on different cloud
 platforms and so on. Most of these suit of best practices called
 “Twelve-Factor Apps” can be bought into production of Software
 applications using technologies such Docker, Kubernetes and
-Microservice architecture~\cite{hid-sp18-602-cloud-twelve-factor}. In
+Microservice architecture~\cite{hid-sp18-602-twelve-factor}. In
 this project, a small application is built using the combination of
 these three technologies. In the below subsections, these concepts are
 briefly introduced to better understand the working of the
@@ -100,8 +100,8 @@ scheme which is usually in YAML or JSON file format. The scheme covers
 important aspects of spec which specifies the Pod behavior, container
 name, container ports. A pod without Services or Replication
 Controller cannot be accessed by the external client, neither scaling
-and distribution of the application are
-possible~\cite{hid-sp18-602-pods}.
+and distribution of the application are possible
+~\cite{hid-sp18-602-pods}.
 
 Services provide an external interface for one or more pods. The
 Service schema definition has 3 important parameters: kind, metadata,
@@ -113,7 +113,7 @@ name HTTP. The selector is the key mapping in the spec and specifies a
 mapping to be used for selecting the Pods to expose via the
 Service. Therefore, the service diverts the network traffic to all its
 pods with the same label as the label selector specified in the
-Service spec, in a round-robin manner. There are 3 different types of
+Service spec, in a $round-robin$ manner. There are 3 different types of
 Service: Load Balancer, Internal IP, Node port. If a Service type is
 ClusterIP, then the service is accessible only within the cluster via
 its internal port. Whereas if the service type is Node port then the
@@ -123,7 +123,7 @@ automatically created. Similarly Load Balancer service type also
 automatically creates Node port and cluster IP. It gives access for
 the external user to ping the IP. In addition to this Load Balancer
 has the responsibility to balance the load between all the Pods in
-Service~\cite{hid-sp18-602-services}.  Another important aspect in
+Service~\cite{hid-sp18-602-services}. Another important aspect in
 scaling applications is Replication Controller, which manages the
 replication level of Pods by setting “replicas” in Replication
 Controller definition or on the command line with the –replicas
@@ -140,8 +140,8 @@ scalable components that could be used by groups with different
 requirements; Fault-tolerant cluster in which if a single Pod replica
 fails (due to node failure,for example), another is started
 automatically; Horizontal scaling in which additional or fewer
-replicas of a Pod could be run by just modifying the “replicas”
-setting in the Replication Controller or using the replicas parameter
+replicas of a Pod could be run by just modifying the replicas
+label in the Replication Controller or using the replicas parameter
 in the kubectl scale command;
 
 \subsection{Google Cloud Platform}
@@ -150,21 +150,21 @@ handle intense data while having the luxury of not having to maintain
 the robust infrastructure, servers, networks etc and create business
 solutions. It provides Cloud shell, which comes with a package of a
 command-line tool, temporary VM instance of GEC, and access to Google
-API with implicit authorization. Also, it supports language such as
-Python, Java, Go, PHP,and Ruby. Moreover, the command-line tool
-exclusively supports Cloud SDK gcloud command line tool. The other
-alternative to Cloud Shell is to download Google Cloud SDK and enable
-Authorization through some keys.
+API with implicit authorization~\cite{hid-sp18-602-cloud-shell}.
+Also, it supports language such as Python, Java, Go, PHP,and Ruby.
+Moreover, the command-line tool exclusively supports Cloud SDK gcloud
+command line tool. The other alternative to Cloud Shell is to download
+Google Cloud SDK and enable Authorization through some keys.
 
 \subsection{Google API}
 Google API is a set of application programming interface which allows
 communication with google services and integration of other
-services. It is great tool for developers to perform operations and use
-its features easily, google map API, google Visualization API, good
-AJAX search are few examples.
+services. It is great tool for developers to perform operations and
+use its features easily, google map API, google Visualization API,
+good AJAX search are few examples.
 
 
-\item \textbf{Cloud Pub/Sub API} Cloud Pub/Sub API is a message
+\subsubsection{Cloud Pub/Sub API} Cloud Pub/Sub API is a message
   passing product that is highly useful for communication between
   independent applications hosted on Google Cloud Platform. The
   concept of Cloud Pub/Sub has 2 endpoints sender and receiver and
@@ -180,7 +180,7 @@ AJAX search are few examples.
   especially main application and
   frontend~\cite{hid-sp18-602-pub/sub}.
 
-\item \textbf{Cloud Vision API} Cloud Vision API is the most popular
+\subsubsection{Cloud Vision API} Cloud Vision API is the most popular
   API that Google has till date. It is very easy and efficient to
   analyze the content of the image, which has state-of-the art tools
   for Image detecting features like: face, text, label and document
@@ -189,9 +189,10 @@ AJAX search are few examples.
   upload images and run pre-determined, custom machine learning
   models. It is built based on Google’s powerful technology of
   learning-to learn, neural network architecture. In fact, building
-  custom ML model is just few steps. First, uploading training dataset
-  with images labeled into google bucket or human-support to label
-  images and the ML model is trained according to the provided
+  custom ML model is just few
+  steps~\cite{hid-sp18-602-cloud-automl}. First, uploading training
+  dataset with images labeled into google bucket or human-support to
+  label images and the ML model is trained according to the provided
   dataset. And then test data is passed, and accuracy of prediction,
   classification of test data set is determined. However, this feature
   of Cloud AutoML is accessible to only limited customers, but the
@@ -211,29 +212,29 @@ API to get access to search, business, metadata. In order to make use
 of these REST API Authentication is required, which is recently
 modified to the Private Key authentication method, which is a simple 2
 step process. Create an account, create manage app, fill in details
-and the private key is generated~\cite{hid-sp18-602-yelp}..
+and the private key is generated~\cite{hid-sp18-602-yelp}.
 
 \section{Approach}
 The main aim of the application is to label photos from Yelp dataset
 retrieved on passing location and search term such as food, dinner,
 using cloud vision API. The application is divided into 3
-microservices frontend, backend, and main app. Each of these
+microservices frontend, backend, and mainapp. Each of these
 functionalities is explained below along with intial setup.
 
-\item \textbf{Initial Setup} As mentioned above, the application
-  requires 2 important API cloud vision API and Pub/Sub API, which
-  have to enabled for the specific project id, the application would
-  be started, in google cloud console. The best part for a software
-  developer to test the working application is to launch directly
-  using gcloud command-line tool, as it doesn’t require authentication
-  setup.  For Cloud SDK installed on the local environment, setting up
-  the authentication is crucial. For this, it is first required to
-  create a service account and download service account key which is
-  usually in JSON file format. Then set the environment variable
-  ``GOOGLE_APPLICATION_CREDENTIALS = [PATH]'', where Path is the file path
-  of the JSON file downloaded from Google Console Dashboard.
+\subsubsection{Initial Setup} As mentioned above, the application
+requires 2 important API cloud vision API and Pub/Sub API, which have
+to enabled for the specific project id, the application would be
+started, in google cloud console. The best part for a software
+developer to test the working application is to launch directly using
+gcloud command-line tool, as it doesn’t require authentication setup.
+For Cloud SDK installed on the local environment, setting up the
+authentication is crucial. For this, it is first required to create a
+service account and download service account key which is usually in
+JSON file format. Then set the environment variable
+\(GOOGLE\_APPLICATION\_CREDENTIALS = [PATH]\), where Path is the
+file path of the JSON file downloaded from Google Console Dashboard.
 
-\item \textbf{Frontend Microservices} The frontend of the application
+\subsubsection{Frontend Microservices} The frontend of the application
   plays a key role as the load balancer service for the entire
   application. It is basically a dynamic web-page, which allows the
   user to enter location, for example, San Francisco, CA and term
@@ -242,7 +243,7 @@ functionalities is explained below along with intial setup.
   external IP is provided which enables user to access outside of the
   cluster through a web-browser.
 
-\item \textbf{Backend Microservice} The backend of the application is
+\subsubsection{Backend Microservice} The backend of the application is
   the storage service through Redis which is important for storage of
   images and their respective labels determined using Cloud Vision
   API~\cite{hid-sp18-602-redis}. The redis is accessible through redis
@@ -250,23 +251,23 @@ functionalities is explained below along with intial setup.
   instance via Mainapp and retrieved in frontend in order to populate
   the page with resulting images-label pair.
 
-\item \textbf{Mainapp Microservice} The mainapp provides the actual
+\subsubsection{Mainapp Microservice} The mainapp provides the actual
   functionality of the application, starting from scraping the data to
   generating the desired output. The major functionalities involved in
-  the service is briefly discussed.  The yelp_images.py has 4
-  functions query_api, get_business,search and request; As
-  the given location and term are passed to query_api, it sends a
+  the service is briefly discussed.  The $yelp\_images.py$ has 4
+  functions $query\_api()$, $get\_business()$, $search()$ and $request()$; As
+  the given location and term are passed to $query\_api$, it sends a
   GET request and as a result business id’s of at most 10 businesses
   are extracted from the response object. For each business id, a
-  get_business is called to retrieve business details. From the
+  $get\_business()$ is called to retrieve business details. From the
   response object of business details, photos are extracted. All the
-  photos are returned to the calling function in main.py.  In
-  vision.py, for image passed, a post request is sent to Vision API to
+  photos are returned to the calling function in $main.py$.  In
+  $vision.py$, for image passed, a post request is sent to Vision API to
   annotate the image, in particular, label detection feature is
   requested. The response object consists of further details of the
   image such as score, confidence, location, and so on but we are
   mainly interested in the label which is a description parameter of
-  string type. In storage.py, StrictRedis class is imported to
+  string type. In $storage.py$, StrictRedis class is imported to
   instantiate redis object. The redis in memory storage is very useful
   because of it’s ability to store objects in key-value pair. Taking
   advantage of this all labels are stored with key labels and
@@ -274,15 +275,15 @@ functionalities is explained below along with intial setup.
   data in the frontend service, by just simply looking for the
   associated imageurl for the label in the list of
   labels~\cite{hid-sp18-602-redis-implementation}.  To summarize,
-  main.py brings together all the above functionalities, it retrieves
-  the data from yelp_images.py, passes photos to vision.py to label
-  each one of them and stores using storage.py. As pub/sub enqueues
-  the whole process in main.py, once the task is done, the frontend
+  $main.py$ brings together all the above functionalities, it retrieves
+  the data from $yelp\_images.py$, passes photos to vision.py to label
+  each one of them and stores using storage.py. As $pub/sub$ enqueues
+  the whole process in $main.py$, once the task is done, the frontend
   gets triggered.
   
-\item \textbf{Pods, Services, Deployments} There is one yaml file for
+\subsubsection{Pods, Services, Deployments} There is one yaml file for
   each of the microservice, which includes schema for service as well
-  as deploymenet. The kubectl create -f <file.yaml> command included
+  as deploymenet. The $kubectl create -f <file.yaml>$ command included
   in the Makefile creates the pods,service and deployments. As
   discussed above the important parameter in general are type, label
   selector, replica, container image and the port where they are
@@ -306,9 +307,11 @@ functionalities is explained below along with intial setup.
   traffic is diverted to other services within the internal port and
   the entire application is up and running.
   
-\item \textbf{Challenges} Understanding Redis and Setting up Redis
-  Cluster Enterprise on Kubernetes took some time. The debug aspect is
-  the difficult because of the layers of abstraction over the
+\subsubsection{Challenges} Selecting the right technologies is a
+  debatable in learning process, this application can be implemented
+  with Google Bucket Storage instead of Redis as it also satisfies
+  with key-value kind of storage system. The debug aspect is the
+  challenge because of the layers of abstraction over the
   microservices, the deployments and everything works fine if there
   exists an error within one of the microservices, which gets hard to
   figure out at times. To an extent we can make use of kubectl logs
@@ -332,13 +335,11 @@ functionalities is explained below along with intial setup.
   more technology stack, I would like to work on MNIST dataset to
   detect and label handwritten images.
 
-
   \begin{acks}
 
     The authors would like to thank Dr.Gregor von Laszewski for his
     support and suggestions to write this paper.
   
-
   \end{acks}
 
   \bibliographystyle{ACM-Reference-Format} \bibliography{report}
