@@ -34,7 +34,9 @@ def index():
 
 @app.route('/start_crawler', methods=['POST'])
 def start_crawler():
-    q.enqueue('main.get_yelp_images','food','San Francisco')
+    term = request.form['text']
+    location = request.form['location']
+    q.enqueue('main.get_yelp_images',term,location)
     return render_template('crawler_started.html')
 
 
