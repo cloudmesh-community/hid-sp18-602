@@ -7,6 +7,9 @@ RUN virtualenv /env
 ENV VIRTUAL_ENV /env
 ENV PATH /env/bin:$PATH
 
+ADD src/requirements.txt /app/requirements.txt
 RUN pip install -r /app/requirements.txt
 
-CMD gunicorn -w 4 -b :$PORT main:src
+ADD src /app
+
+CMD gunicorn -w 4 -b :$PORT main:app
