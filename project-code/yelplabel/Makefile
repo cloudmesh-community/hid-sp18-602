@@ -1,8 +1,14 @@
 .PHONY: all
-all: backend frontend main
+all: setup backend frontend mainapp
 
 .PHONY: delete
-delete: delete-backend delete-frontend delete-main
+delete: delete-backend delete-frontend delete-mainapp delete-setup
+
+.PHONY: setup
+setup:
+	gcloud config set compute/zone us-east1-b
+        gcloud container clusters create yelplabel --num-nodes 2 --scopes cloud-platform
+        gcloud container clusters get-credentials yelplabel
 
 .PHONY: backend
 backend:
@@ -12,7 +18,7 @@ backend:
 frontend:
 	$(MAKE) -C frontend all
 
-.PHONY: main
+.PHONY: mainapp
 main:
 	$(MAKE) -C mainapp all
 
@@ -27,3 +33,7 @@ delete-webapp:
 .PHONY: delete-main
 delete-worker:
 	$(MAKE) -C main delete
+
+.PHONY: delete-setup
+delete-setup:
+	gcloud container clusters delete yelplabel

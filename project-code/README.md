@@ -1,15 +1,14 @@
-status: 70%
-
-## Acknowledgement 
-
-* Thanks to Professor Gregor Von Laszewski for support and guidance to do this project. 
-
-## Description:
+##Kubernetes based Microservices to label Yelp Photos
 
 The main purpose of the porject is to understad the Microservices architecture using Kubernetes. In order to achieve this, an application
 to label images from Yelp photos dataset is built.
 
 * Technologies Used: Docker,Kubernetes,Redis,Cloud Vision API, Pub/Sub API, Cloud Shell,Python, HTML,CSS:Google Material Design
+
+## Acknowledgement 
+
+* Thanks to Professor Gregor Von Laszewski for support and guidance to do this project. 
+
 
 ## Prequesite
 
