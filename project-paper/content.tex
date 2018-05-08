@@ -253,16 +253,75 @@ objects in-memory database of redis~\cite{hid-sp18-602-redis}.
 \subsection{Yelp Dataset}
 
 Yelp provides an open-source dataset for the challenge with students
-and university grads. It is usually in JSON and CSV format that can be
-downloaded from their website. In addition to this Yelp also gives
-access to their data through Yelp-Fusion. Yelp Fusion provides REST
-API to get access to search, business, metadata. In order to make use
-of these REST API Authentication is required, which is recently
-modified to the Private Key authentication method, which is a simple 2
-step process. Create an account, create manage app, fill in details
-and the private key is generated~\cite{hid-sp18-602-yelp}.
+and university grads. The yelp data set is huge of nearly 2.66
+gigabytes of dataset comprised of all the text details present in
+yelp, this may include all kinds of business and theri details. Apard
+from this, yelp also holds photos dataset which is 7.50 gigabytes of
+compressed dataset, which are purely images of count nearly 200,000,
+for purposes like image analysis, apply machine learning and computer
+vision technologies. The text-based dataset is usually in JSON/ CSV,
+SQL format that can be downloaded from their website. In addition to
+this Yelp also gives access to their data through Yelp-Fusion. Yelp
+Fusion provides REST API to get access to search, business,
+metadata. This reduce lot of overload of downloading un-necessary data
+and gives the opportunity to choose selectively required paramets and
+leave the rest. This is advantageous not just in terms of space, but
+also the time taken using REST API is far more efficient and quick
+compared to the downloading such huge dataset and handling them
+again. Therefore,in order to make use of these REST API Authentication
+is required, which is recently modified to the Private Key
+authentication method, which is a simple 2 step process. Create an
+account, create manage app, fill in details and the private key is
+generated~\cite{hid-sp18-602-yelp}.
 
-\TODO{YOu do not comment on the size of the data}
+\subsection{REST API}
+
+Representational state transfer (REST) is any interface between
+systems based on HTTP properties, web services to obtain data and send
+data. It is an architectural style that is as simple as function calls
+and it is adapted in various applications. REST API is of course
+central theme of this project. The main reason it is widely used
+across many programming applications is it can be easily used in sync
+with the other functionalities of the application. On the other hand
+REST API doesn't need any software or particular usage of protocl, it
+simply works with HTTP and many other protocol. In order to use for a
+specific server, the package to authenticate that server would need to
+be installed.
+
+There are 2 important aspects to the REST API is request and response
+object. The request sent to the API usaually includes the http url
+that serves as an endpoint to client or server and the parameters,
+header details that has to be sent according to your need. Whereas the
+response object consists of data that is returned upon the request
+call, is usually in some format such as XML, JSON format. JSON is
+Javascript Object Notation is a data format that is extensively used
+to expose API. This can be easily imported via package json. There are
+many popular function that can convert any data into JSON and
+vice-versa. Two of the popluar python based JSON encoder and decoder
+are JSON dump and JSON load. json.dump() function takes an json object
+and convert string-type data and json.load() converts data, from
+file-like objects and convert into JSON object. The response object is
+further stored and manipulated according to the requirements. The
+general requests are GET, POST, PUT, HEAD, DELETE, PATCH. In this
+project, mainly GET, POST request listed and explained briefly.
+
+\begin{itemize}
+\item \textbf{GET Request} GET Request is used to request data from a
+  resources, and are stored in cache and so they have length
+  restriction which makes it necessary to send limited data via GET
+  Request. Hence a query string sent in the URL of a GET request has
+  carfully choosen parameters that are required. The data received
+  from the server with GET response is stored in response object which
+  could of JSON format.
+  
+\item \textbf{POST Request} POST request is used to send data to the
+  server, the data need not necessarly be the data that has to be
+  stored in the server, rather it could be credential details, or
+  simply acknowledgement. POST request are not cached and hence no
+  restrictons on data length. The data sent to the server with POST is
+  stored in the request body of the HTTP request.
+  
+\end{itemize}
 
 \section{Approach}
 
@@ -285,33 +344,103 @@ this, it is first required to create a service account and download
 service account key which is usually in JSON file format. Then set the
 environment variable \verb|GOOGLE_APPLICATION_CREDENTIALS = [PATH]|,
 where \verb|PATH| is the file path of the JSON file downloaded from
-Google Console Dashboard. After this step, it is important to activate
+Google Console Dashboard.
+
+After setting the environment variable, it is important to activate
 gcloud command line tool, with the command ``gcloud init''. Then it is
 required to setup the cluster to run he project.  The cluster is built
 on Google Cloud, for billing is activated on your Service Account. To
 setup the cluster, it is required to choose the compute zone. The
-command ``gcloud config set compute/zone <zone-name>'' to set up the
-zone. Then to start the cluster ``gcloud container cluster create
-<project-name> --num-nodes <num> --scope cloud-platform''. This
-command is useful to set-up... After creating a cluster, the cluster
-should be authorized with the service account, in order to get access
-to all the api's. Hence the command `` gcloud container clusters
-get-credentials <project-name>'' . If the cluster is perfectly created
-then you should be able to get the correct information for the cluster
-created by activating ``kubectl cluster-info''. Since initially, there
-are eno pods, services, deployments created on running the command
-kubectl get pods you find no pods created. The execution section give
-more details on how to run the project.
+command ``gcloud config set compute/zone <zone-name>'' sets up the
+particular zone you would want your cluster to locate at.This is
+important becuase it provides less latency when connecting to the
+cluster from gcloud,or via Cloud SDK. The zone-name would like
+east1-b,central1-a and so on, and it is better to choose according to
+location, although the features offered doesn't differ much. The
+actual cluster can be created using the command ``gcloud container
+cluster create <cluster-name> --num-nodes <num> --scope
+cloud-platform''. This command specifies cluster name and the number
+of nodes created for each zone of that cluster.  After creating a
+cluster, the cluster should be authorized with the service account, in
+order to get access to all the api's. Hence the command `` gcloud
+container clusters get-credentials <cluster-name>''. If the cluster
+is perfectly created then you should be able to get the correct
+information for the cluster created by activating ``kubectl
+cluster-info''. Since initially, there are eno pods, services,
+deployments created on running the command kubectl get pods you find
+no pods created. The execution section give more details on how to run
+the project.
 
-\subsubsection{Frontend Microservices} 
+\subsubsection{Frontend Microservices}
 
 The frontend of the application plays a key role as the load balancer
 service for the entire application. It is basically a dynamic
 web-page, which allows the user to enter location, for example, San
 Francisco, CA and term like food, dinner. Based on these inputs,
-photos are fetched. As the frontend service is deployed as a
-load-balancer service an external IP is provided which enables user to
-access outside of the cluster through a web-browser.
+photos are fetched. The technologies used for the web-page along is
+python, html,javascript and css. The below paragraph explains breify
+about each of these technologies and how they have been used in te
+frontend of this application.
+
+\begin{itemize}
+\item\textbf{Python} Python web-development framework Flask is used to
+  make server calls to storage.py. The flask is an opensource tool
+  which is an easy to use tool for server-side scripting. It can be
+  installed using pip install flask command and imported in python via
+  Flask package. Because it is a micro framework it can be implemented
+  on top of any backend service with no restrictions like particular
+  tools,libraries, or extensions are required. Moreover, Flask
+  supports RESTful requests for dispatching GET,POST. Hence it is very
+  useful in our project to easily make use of API to communicate and
+  recivie from backend.
+
+  
+\item\textbf{Javascript} JavaScript is a core-technology mainly used
+  to build dynamic web-pages. There are different framworks such
+  vue.js, AngularJS,ReactJS, to design creative and interactive web
+  pages. In this frontend javascipt is extended via a material design
+  file in storage.googleapis.com. This really reduces the time, effort
+  and gives world-class view for the webpage.
+  
+\item\textbf{HTML} HTML Hypertext Markup Language is useful to add
+  content to the webpage. To make the webpages dynamic and add style
+  to the page,Javascript, CSS are used. The HTML is the base of the
+  webpage no matter any web-technologies out there, they must be added
+  on top of HTML base page.
+  
+\item\textbf{CSS}
+
+  Cascading Style Sheets (CSS) is used for styling the HTML webpage,
+  with respect to display and it is added either internal with
+  <style></style> tags or external using CSS file. The CSS for this
+  project is taken from google style package,googleapis for fonts,
+  material icons and for other design can be selectively picked from
+  material designs stored at google storage.
+  
+\end{itemize}
+
+In this frontend, the main.py imports flask and it is the main program
+that connect the frontend and server calls to the storage.py where
+StrictRedis of REdis is imported and labels, respective imageurl
+stored are retrieved. The received data from storage,py are then
+passed on the web page via \verb|render_template()|, this will send
+the the html page to view and also passes the data required. There are
+2 views enabled in the webpage. The intial view consists of 2 input
+text box for user to enter location and category. This information is
+routed to \verb|get_yelp_images()| function in mainapp via pubsub
+client. This enables the whole process of extracting photos of the top
+10 business from the search results based on the location and term and
+then store their urls with annotations detected using vision api, in
+redis storage. After that process ends and the redis storage now has
+the relevant data, the 2nd view is activated with the labels and
+images as the storage.py functions in the forntend responds. Thus each
+of the services are very much linked to the frontend service, it is
+like the start and endpoint of the project. Once the images with
+labels are loaded, how many ever times you refresh you don't see a
+change in the display because the data retrievd via storage.py doesn't
+change.  As the frontend service is deployed as a load-balancer
+service an external IP is provided which enables user to access
+outside of the cluster through a web-browser.
 
 \subsubsection{Backend Microservice} 
 
@@ -328,9 +457,9 @@ pair.
 The mainapp provides the actual functionality of the application,
 starting from scraping the data to generating the desired output. The
 major functionalities involved in the service is divided into
-main.py,\verb|yelp_label.py|, vision.py and storage.py. Each is further
-modularized with function, which are briefly explained in below
-paragraphs.
+main.py,\verb|yelp_label.py|, vision.py and storage.py. Each is
+further modularized with function, which are briefly explained in
+below paragraphs.
 
 The \verb|yelp_images.py| has 4 functions \verb|query_api()|,
 \verb|get_business()|, \verb|search()| and \verb|request()|; As the
@@ -358,16 +487,16 @@ returned to the calling function in main.py.
 In vision.py, the authorization to access Vision api is set through
 Google Credentials python package. The authorization done at this step
 isn't specific to vision api rather it is common to access almost any
-Google API. Now, for image passed, a post request is sent to Vision
-API to annotate the image, by particular mentioning the label
-detection feature and the the image url for that image. It is is
-important to specify the feature, or any further details of the image
-as it imporves Machine Learning model for the analysis of the photo by
-adding weightage to each of the parameters. Along with the label which
-is a description parameter of string type, response object consists of
-details of the image such as score, confidence, location, and so
-on. The label annotation is return to the calling function for the
-sent image url.
+Google API. Now, for image passed to the \verb|detect_labels()|, a
+post request is sent to Vision API to annotate the image, by
+particular mentioning the label detection feature and the the image
+url for that image. It is important to specify the feature, or any
+further details of the image as it imporves Machine Learning model for
+the analysis of the photo by adding weightage to each of the
+parameters. Along with the label which is a description parameter of
+string type, response object consists of details of the image such as
+score, confidence, location, and so on. The label annotation is return
+to the calling function for the sent image url.
 
 In storage.py, StrictRedis class is imported to instantiate redis
 object. The redis in memory storage is very useful because of it’s
@@ -376,9 +505,10 @@ all labels are stored with labels as key and label name as the
 value. Also for each label as key the image url is stored as value
 . This makes very easy to retrieve data in the frontend service,by
 just simply looking for the associated imageurl for the label in the
-list of labels~\cite{hid-sp18-602-redis-implementation}.The \verb|add_labels|
-function stores all the annotated label for photos into a labels list
-and \verb|add_image| fucntion stores label and photo as key-value pair.
+list of labels~\cite{hid-sp18-602-redis-implementation}.The
+\verb|add_labels| function stores all the annotated label for photos
+into a labels list and \verb|add_image| fucntion stores label and
+photo as key-value pair.
 
 To summarize, main.py brings together all the above functionalities,
 it retrieves the data from \verb|yelp_images.py|, passes photos to
@@ -415,7 +545,7 @@ also the load-balancer for the application, so on request the traffic
 is diverted to other services within the internal port and the entire
 application is up and running. In order to delete all changes you can
 run the command,where as in order to delete services,pods and
-deployments you can run the command kubectl delete --all
+deployments you can run the command ``kubectl delete --all''
 pods,servies,deployments.
   
 \subsection{Challenges}
