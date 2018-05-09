@@ -1,5 +1,23 @@
-% status: 100
+% status: 60
 % chapter: Microservices
+
+
+\def\paperstatus{60} % a number from 0-100 indicating your status. 100
+                % means completed
+\def\paperchapter{Microservices} % This section is typically a single keyword. from
+                   % a small list. Consult with theinstructors about
+                   % yours. They typically fill it out once your first
+                   % text has been reviewed.
+\def\hid{hid-sp18-602} % all hids of the authors of this
+                                % paper. The paper must only be in one
+                                % authors directory and all other
+                                % authors contribute to it in that
+                                % directory. That authors hid must be
+                                % listed first
+\def\volume{9} % the volume of the proceedings in which this paper is to
+           % be included
+
+\def\locator{\hid, Volume: \volume, Chapter: \paperchapter, Status: \paperstatus. \newline}
 
 \title{Kubernetes based Microservices to label Yelp Photos}
 
@@ -39,12 +57,15 @@
   components of this application is discussed.
 \end{abstract}
 
-\keywords{hid-sp18-602,docker,vision,kubernetes,yelp,redis,pub/sub}
+\keywords{\locator docker, vision, kubernetes, yelp, redis, pub/sub}
 
 
 \maketitle
 
 \section{Introduction}
+
+\TODO{Can not be replicated}
+\TODO{Missing Benchmarks}
 
 The applications are growing complex, not just functionality wise but
 also the data generated and used are highly increasing. This makes it
