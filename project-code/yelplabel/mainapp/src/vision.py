@@ -35,11 +35,10 @@ class VisionApi(object):
 
     def detect_labels(self, image,num_retries=3):
         """Uses the Vision API to annotate  image  """
-
-            request = self.vision.images().annotate(
-            body={'requests': [{
-			'image': {
-                   		 'content': base64.b64encode(image).decode('UTF-8')
+        request = self.vision.images().annotate(
+        body={'requests': [{
+                             'image': {
+                   	     'content': base64.b64encode(image).decode('UTF-8')
                		 },
                 	'features': [{
                     		 'type': 'LABEL_DETECTION',

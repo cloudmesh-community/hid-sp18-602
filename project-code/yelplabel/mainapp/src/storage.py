@@ -30,7 +30,7 @@ class Storage(object):
         self.redis.sadd('labels', label)
 
     def add_image(self, image_url, label):
-	    p.sadd(label, image_url)
-            p.setnx('repr_img:{}'.format(label), image_url)
-
+        p=self.redis.pipeline()
+        p.sadd(label, image_url)
+        p.setnx('repr_img:{}'.format(label), image_url)
         p.execute()
