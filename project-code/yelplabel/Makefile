@@ -7,8 +7,8 @@ delete: delete-backend delete-frontend delete-mainapp delete-setup
 .PHONY: setup
 setup:
 	gcloud config set compute/zone us-east1-b
-        gcloud container clusters create yelplabel --num-nodes 2 --scopes cloud-platform
-        gcloud container clusters get-credentials yelplabel
+	gcloud container clusters create yelplabel --num-nodes 2 --scopes cloud-platform
+	gcloud container clusters get-credentials yelplabel
 
 .PHONY: backend
 backend:

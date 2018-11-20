@@ -9,13 +9,17 @@ build:
 
 .PHONY: push
 push: build
+	gcloud auth configure-docker
 	gcloud docker -- push gcr.io/$(GCLOUD_PROJECT)/yelplabel-mainapp
 
+.PHONY: template
+template:
+	sed "s/\$$GCLOUD_PROJECT/$(GCLOUD_PROJECT)/g" spec.tmpl.yaml > spec.yaml
 
 .PHONY: deploy
-deploy: push 
-	kubectl create -f mainapp.yaml
+deploy: push template
+	kubectl create -f spec.yaml
 
 .PHONY: delete
 delete: template
-	kubectl delete --ignore-not-found -f mainapp.yaml
+	kubectl delete --ignore-not-found -f spec.yaml

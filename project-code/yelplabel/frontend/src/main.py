@@ -13,7 +13,8 @@
 # limitations under the License.
 
 from flask import Flask, render_template
-from gcloud import pubsub
+from google.cloud import pubsub
+
 import psq
 
 from storage import Storage
@@ -23,7 +24,9 @@ app = Flask(__name__)
 app.debug = True
 
 storage = Storage()
-q = psq.Queue(pubsub.Client(), 'images')
+publisher =pubsub.PublisherClient()
+subscriber=pubsub.SubscriberClient()
+q = psq.Queue(publisher,subscriber, 'project-223100')
 
 
 @app.route('/')
