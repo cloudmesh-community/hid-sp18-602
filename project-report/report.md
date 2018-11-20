@@ -1,18 +1,30 @@
-\RequirePackage[hyphens]{url}
-\affiliation{
-  \institution{Indiana University Bloomington}
-  \city{Bloomington}
-  \state{Indiana}
-  \postcode{47404}
-  \country{USA}}
-\email{knaredla@iu.edu}
-\keywords{\locator docker, vision, kubernetes, yelp, redis, pub/sub}
-\maketitle
-Introduction
-============
 
-\todo[inline]{Can not be replicated}
-\todo[inline]{Missing Benchmarks}
+# Something with yelp
+
+```
+See other projects how to do the author and keywords
+
+Indiana University Bloomington
+Bloomington
+Indiana, 47404, USA
+knaredla@iu.edu
+```
+
+---
+
+Keywords: docker, vision, kubernetes, yelp, redis, pub/sub
+
+---
+
+## Introduction
+
+:o: Can not be replicated
+
+:o: Missing Benchmark so a comparision is highlighted (that what a benchmark is)
+
+:o: All sections have to be revisited as sections wer done wrong possibly even in the original 
+latex file. Take a look at the TOC.
+
 The applications are growing complex, not just functionality wise but
 also the data generated and used are highly increasing. This makes it
 absolute necessary to break down such complex application, instead of a
@@ -283,8 +295,8 @@ and explained briefly.
     restrictons on data length. The data sent to the server with POST is
     stored in the request body of the HTTP request.
 
-Approach
-========
+## Approach
+
 
 The main aim of the application is to label photos from Yelp dataset
 retrieved on passing location and search term such as food, dinner,
@@ -483,8 +495,7 @@ replica factor, which ensures deletion or failure of one or 2 pods
 doesn't stop the application from running. Also the constant updates are
 made easy with rollback.
 
-Execution
-=========
+## Execution
 
 The execution of the application is incorporated through Makefile. Just
 by running make all inside yelplabel directory, will spin the docker
@@ -514,8 +525,7 @@ exists an error within one of the microservices, which gets hard to
 figure out at times. To an extent we can make use of kubectl logs and
 google cloud provide error report.
 
-Results
-=======
+## Results
 
 The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
@@ -546,8 +556,7 @@ is limited. Moroever, the challenge with yelp photos is to able to
 distinguish between different varities of in food catgoery, for
 instance.
 
-Conclusion
-==========
+## Conclusion
 
 Thus application to scrape data from yelp-fust thion API and detect
 label using Cloud Vision api, which is neatly displayed on a browser
@@ -556,13 +565,19 @@ workflow which important dier in application deployment. With Kubernetes
 not just orchestration of docker components but the flexibility,
 scalability for the deployment of microservices is highly achieved.
 
-Future Scope
-============
+## Future Scope
+
+:o: this is not an experinece report. If you do a future scope we will keep the incomplete till you finished it.
+Otherwise the section is called limitations or something like that
 
 I attempted to make use of Cloud AutoML, Vision API to label MNIST
 dataset as a part of this project, but unfortunately teh cloud AutoML
 gives access to specific user to customize the pre-trained ML model
-based on Google Cloud Vision. This is a huge dataset of NIST authorized
+based on Google Cloud Vision. 
+
+:o: We do not understand thsi limitation
+
+This is a huge dataset of NIST authorized
 handwritten dataset, highly used for testing the accuracy of ML models
 for Computer Vision and Image Analysis. Using the same or more
 technology stack, I would like to work on MNIST dataset to detect and
@@ -570,7 +585,11 @@ label handwritten images as side-project,irrespective of my class
 schedule, during upcoming semester with the guidance of the professor
 Dr.Gregor von Laszewski.
 
+:o: certainly you can do this, you will have to take an indepoendent study.
+Its like the class with 100% focus on report.
+
+## Acknowledgement
+
 The authors would like to thank Dr.Gregor von Laszewski for his support
 and suggestions to write this paper.
 
-\bibliographystyle{ACM-Reference-Format}
