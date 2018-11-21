@@ -36,5 +36,6 @@ def get_yelp_images(term,location):
     for image_urls in query_api(term, location):
         q = psq.Queue(publisher,subscriber, 'project-223100')
         q.enqueue('main.label_images_task', image_urls)
+        print("Enqueued {} images".format(len(image_urls)))
 
 q = psq.Queue(publisher,subscriber,'project-223100')

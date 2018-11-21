@@ -32,14 +32,22 @@ q = psq.Queue(publisher,subscriber, 'project-223100')
 @app.route('/')
 def index():
     labels = storage.get_labels()
-    annotated_images = storage.get_images(labels)
-    return render_template('index.html', annotated_images=annotated_images)
+    #annotated_images = storage.get_images(labels)
+    #return render_template('index.html', annotated_images=annotated_images)
+    labels_and_images = storage.get_repr_image_for_labels(labels)
+    print ("I'm on the page")
+    return render_template('index.html', labels=labels_and_images)
+
+@app.route('/label/<label>')
+def label(label):
+    images = storage.get_images(label)
+    return render_template('label.html', images=images)
 
 @app.route('/start_crawler', methods=['POST'])
 def start_crawler():
-    term = request.form['text']
-    location = request.form['location']
-    q.enqueue('main.get_yelp_images',term,location)
+   # term = request.form['text']
+    #location = request.form['location']
+    q.enqueue('main.get_yelp_images',"food","Sanfransico, Bay Areao")
     return render_template('crawler_started.html')
 
 
