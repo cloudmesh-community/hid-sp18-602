@@ -12,30 +12,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from google.cloud import pubsub
 import requests
-import psq
 import yelp_images
-from storage import Storage
 from vision import VisionApi
 
 
-publisher=pubsub.PublisherClient()
-subscriber=pubsub.SubscriberClient()
 
 def label_images_task(image_urls):
     vision = VisionApi()
-    storage = Storage()
+    result={}
     for image_url in image_urls:
-        image_content=request.get(image_url)
-        label=vision.detect_labels(image_content)
-        storage.add_labels(label)
-        storage.add_image(image_url,label)
+        #image_content=requests.get(image_url)
+       
+        #print(image_url)
+        label=vision.detect_labels(image_url)
+        result[image_url]=label
+    return result
+
         
 def get_yelp_images(term,location):
-    for image_urls in query_api(term, location):
-        q = psq.Queue(publisher,subscriber, 'project-223100')
-        q.enqueue('main.label_images_task', image_urls)
-        print("Enqueued {} images".format(len(image_urls)))
+    re=label_images_task(yelp_images.query_api(term, location))
+    print(re)
 
-q = psq.Queue(publisher,subscriber,'project-223100')
+get_yelp_images("food","Indianapolis")
