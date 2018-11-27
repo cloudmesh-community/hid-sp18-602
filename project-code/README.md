@@ -1,4 +1,4 @@
-## Kubernetes based Microservices to label Yelp Photos
+## Scalable Microservices to Label yelp images using Kuberenets 
 
 The main purpose of the porject is to understad the Microservices
 architecture using Kubernetes. In order to achieve this, an
