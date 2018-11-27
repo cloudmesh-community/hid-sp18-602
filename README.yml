@@ -4,3 +4,26 @@ owner:
   lastname: "naredla"
   hid: "hid-sp18-602"
   community: "e616"
+  semester:"sp18"
+  profile:
+  - url: https://github.com/Keerthi4308
+Assignments:
+    - title: Eve Rest Service
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/eve
+    - title:Write and execute Swagger service 
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger
+    - title: Configure Rasberry PI (burn SD card and contribute to a tutorial)
+      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/sd-card-windows.md
+    - title: Overview on 5 technologies
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/technology
+    - title: Rest API for Openstack Galnce
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger-docker
+    
+chapter:
+    - title: CloudAutoML
+      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/paper/content.tex (have to updated to paper.md)
+      
+project:
+    - title: Scalable Microservices to Label yelp images using Kuberenets 
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-report
+      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code
