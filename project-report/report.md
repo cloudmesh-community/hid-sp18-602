@@ -1,14 +1,12 @@
 
-# Scalable Microservices to Label yelp images using Kuberenets
+# Scalable Microservices to Label yelp images using Kuberenets :hand: sp18-616-02
 
-```
-See other projects how to do the author and keywords
-
-Indiana University Bloomington
-Bloomington
-Indiana, 47404, USA
-knaredla@iu.edu
-```
+| Keerthi Naredla
+| knaredla@iu.edu
+| Indiana University Bloomington
+| hid: sp18-616-02
+| github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/project-report/report.md)
+| code: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code
 
 ---
 
