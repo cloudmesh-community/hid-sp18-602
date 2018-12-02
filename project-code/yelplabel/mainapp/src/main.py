@@ -1,21 +1,9 @@
-# Copyright 2015 Google Inc. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import requests
 import yelp_images
 from vision import VisionApi
-
+from kafka import KafkaConsumer
+import json
 
 
 def label_images_task(image_urls):
@@ -31,7 +19,29 @@ def label_images_task(image_urls):
 
         
 def get_yelp_images(term,location):
-    re=label_images_task(yelp_images.query_api(term, location))
-    print(re)
+    result=label_images_task(yelp_images.query_api(term, location))
+    response={
+            'topic': 'labels',
+            'data':result
+            }
+    callProducer(response)
 
-get_yelp_images("food","Indianapolis")
+def callProducer(result):
+    print("Msg to be sent to producer : {0}" .format(result))
+    headers = {"Content-type": "application/json"}
+    response = requests.post("http://localhost:4004/kafkaProducer", json.dumps(result), headers=headers)
+
+
+
+#get_yelp_images("food","Indianapolis")
+
+def get_input():
+    #consumer call
+    consumer = KafkaConsumer('SampleInput', bootstrap_servers='localhost:9092')
+    for message in consumer:
+        data=json.loads(message.value)
+        get_yelp_images(data['business'],data['location'])
+
+
+
+get_input()
