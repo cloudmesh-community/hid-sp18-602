@@ -11,11 +11,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    images_labels={u'https://s3-media1.fl.yelpcdn.com/bphoto/R8DJPyfrNoRpM-kUCOYM0Q/o.jpg': u'dish', 
-          u'https://s3-media2.fl.yelpcdn.com/bphoto/yOVE7bXv5iZtlbBIPaSUIw/o.jpg': u'recreation', 
-          u'https://s3-media4.fl.yelpcdn.com/bphoto/1B5xfxIO3WoqSrJrvxQMlA/o.jpg': u'dish',
-          u'https://s3-media1.fl.yelpcdn.com/bphoto/dt_Ewi4fbXb7_Qli09OF6Q/o.jpg': u'room'}
-    return render_template('display_results.html',images_labels=images_labels)
+    #images_labels={u'https://s3-media1.fl.yelpcdn.com/bphoto/R8DJPyfrNoRpM-kUCOYM0Q/o.jpg': u'dish', 
+     #     u'https://s3-media2.fl.yelpcdn.com/bphoto/yOVE7bXv5iZtlbBIPaSUIw/o.jpg': u'recreation', 
+      #    u'https://s3-media4.fl.yelpcdn.com/bphoto/1B5xfxIO3WoqSrJrvxQMlA/o.jpg': u'dish',
+       #   u'https://s3-media1.fl.yelpcdn.com/bphoto/dt_Ewi4fbXb7_Qli09OF6Q/o.jpg': u'room'}
+    return render_template('input_page.html')
    
 @app.route('/inputs',methods = ['POST'])
 def inputs():
@@ -34,13 +34,9 @@ def results():
     #consumer call
     consumer = KafkaConsumer('labels', bootstrap_servers='localhost:9092')
     for message in consumer:
-        data=json.loads(message.value)
-        #print(data)
-        #images_labels={}
-        #for key,value in data:
-         #   images_labels[key]=value
-        #print(images_labels)
-    return render_template("display_results.html",images_labels=data)
+        images_labels=json.loads(message.value)
+        print(images_labels)
+    return render_template("display_results.html",images_labels=images_labels)
     
 def callProducer(query):
     print("Msg to be sent to producer : {0}" .format(query))
