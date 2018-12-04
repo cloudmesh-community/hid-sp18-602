@@ -1,47 +1,55 @@
-from flask import Flask, render_template
-from flask import request
-from kafka import KafkaConsumer
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-import requests
-import sys
-import json
+from flask import Flask, render_template
+from google.cloud import pubsub
+
+import psq
+
+from storage import Storage
+
 
 app = Flask(__name__)
+app.debug = True
+
+storage = Storage()
+publisher =pubsub.PublisherClient()
+subscriber=pubsub.SubscriberClient()
+q = psq.Queue(publisher,subscriber, 'project-223100')
 
 
 @app.route('/')
 def index():
-    #images_labels={u'https://s3-media1.fl.yelpcdn.com/bphoto/R8DJPyfrNoRpM-kUCOYM0Q/o.jpg': u'dish', 
-     #     u'https://s3-media2.fl.yelpcdn.com/bphoto/yOVE7bXv5iZtlbBIPaSUIw/o.jpg': u'recreation', 
-      #    u'https://s3-media4.fl.yelpcdn.com/bphoto/1B5xfxIO3WoqSrJrvxQMlA/o.jpg': u'dish',
-       #   u'https://s3-media1.fl.yelpcdn.com/bphoto/dt_Ewi4fbXb7_Qli09OF6Q/o.jpg': u'room'}
-    return render_template('input_page.html')
-   
-@app.route('/inputs',methods = ['POST'])
-def inputs():
-    query={
-            'topic':'SampleInput',
-            'data': {
-                'business' : request.form['business'],
-                'location' : request.form['location']
-                }
-          }
-    callProducer(query)
-    results()
+    labels = storage.get_labels()
+    #annotated_images = storage.get_images(labels)
+    #return render_template('index.html', annotated_images=annotated_images)
+    labels_and_images = storage.get_repr_image_for_labels(labels)
+    print ("I'm on the page")
+    return render_template('index.html', labels=labels_and_images)
 
-@app.route('/results')
-def results():
-    #consumer call
-    consumer = KafkaConsumer('labels', bootstrap_servers='localhost:9092')
-    for message in consumer:
-        images_labels=json.loads(message.value)
-        print(images_labels)
-    return render_template("display_results.html",images_labels=images_labels)
-    
-def callProducer(query):
-    print("Msg to be sent to producer : {0}" .format(query))
-    headers = {"Content-type": "application/json"}
-    response = requests.post("http://localhost:4004/kafkaProducer", json.dumps(query), headers=headers)
+@app.route('/label/<label>')
+def label(label):
+    images = storage.get_images(label)
+    return render_template('label.html', images=images)
+
+@app.route('/start_crawler', methods=['POST'])
+def start_crawler():
+   # term = request.form['text']
+    #location = request.form['location']
+    q.enqueue('main.get_yelp_images',"food","Sanfransico, Bay Areao")
+    return render_template('crawler_started.html')
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

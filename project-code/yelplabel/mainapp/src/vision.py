@@ -13,11 +13,10 @@
 # limitations under the License.
 
 import base64
-import json
+
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
-API_KEY='AIzaSyDASvlgiXOKlf9Spr183d-ITKkWi844nII'
 DISCOVERY_URL='https://{api}.googleapis.com/$discovery/rest?version={apiVersion}'
 
 
@@ -27,33 +26,28 @@ class VisionApi(object):
 
 
     def _create_client(self):
-        #credentials = GoogleCredentials.get_application_default()
+        credentials = GoogleCredentials.get_application_default()
         return discovery.build(
-            'vision', 'v1', developerKey=API_KEY,
+            'vision', 'v1', credentials=credentials,
             discoveryServiceUrl=DISCOVERY_URL)
 
 
 
-    def detect_labels(self, images,max_results=1,num_retries=3):
+    def detect_labels(self, image,num_retries=3):
         """Uses the Vision API to annotate  image  """
         request = self.vision.images().annotate(
         body={'requests': [{
                              'image': {
-                                 #'content': str(base64.b64encode(images).decode('UTF-8'))
-                                 'source':{
-                                    'imageUri':images
-                                     }
+                   	     'content': base64.b64encode(image).decode('UTF-8')
                		 },
                 	'features': [{
                     		 'type': 'LABEL_DETECTION',
-                   		 'maxResults': max_results,
+                   		 'maxResults': 1,
                		 }]
         	    }]
         	})
-        #request=self.vision.images().annotate(body)
-        
-        #print(body)
-        response = request.execute(num_retries=num_retries)
-	label=response['responses'][0]['labelAnnotations'][0]['description']
 
-        return label
+        response = request.execute(num_retries=num_retries)
+	label=response.get('labelAnnotations')['description']
+
+	return label

@@ -25,7 +25,7 @@ except ImportError:
 # Yelp Fusion API now uses private keys to authenticate requests (API Key)
 # You can find it on https://www.yelp.com/developers/v3/manage_app
 
-API_KEY="A1eOA3dCo_jbecHCaYM9x03KrEH_inyvC3ywbieX8asv9gw8WJDJOi35ve8c0Jxpu3EXJGn4GQ73peAb1O1PqsHNgKVCilbhtN3F0BM7SxmXep1lw0YNFjdg-dz1W3Yx" 
+API_KEY="1iGqWM9QLUAJeHvnqjeMa5BfhPDkJgfHJDafojGNz5wTx64fMihznUUKwiTa0_io5QwAaI8xmb8geMF4NmmO407Ux3KZcikWbFPeGWXd-PN11-wYk-U2Ti_7ZozoWnYx" 
 
 
 # API constants, you shouldn't have to change these.
@@ -35,11 +35,10 @@ BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 
 
 # Defaults for our simple example.
-DEFAULT_TERM = 'food'
-DEFAULT_LOCATION = 'Indianapolis'
+DEFAULT_TERM = 'dinner'
+DEFAULT_LOCATION = 'San Francisco, CA'
 SEARCH_LIMIT = 10
 
-print ("Hello World")
 
 def request(host, path, api_key, url_params=None):
     """Given your API_KEY, send a GET request to the API.
@@ -109,6 +108,7 @@ def query_api(term, location):
         location (str): The location of the business to query.
     """
     response = search(API_KEY, term, location)
+
     businesses = response.get('businesses')
 
     if not businesses:
@@ -124,6 +124,3 @@ def query_api(term, location):
 		photos.append(pics.encode('utf8'))
 
     return photos
-
-#print(query_api(DEFAULT_TERM,DEFAULT_LOCATION))
-      
