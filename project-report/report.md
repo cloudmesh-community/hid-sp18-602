@@ -34,8 +34,33 @@ project, an application is built using a combination of these three
 technologies. In the below subsections, these concepts are briefly
 introduced to better understand the working of the application.
 
-Docker
-------
+
+## Implementation
+
+### Yelp Dataset
+
+Yelp provides an open-source dataset for the challenge with students and
+university grads. The yelp data set is huge of nearly 2.66 gigabytes of
+dataset comprised of all the text details present in yelp, this may
+include all kinds of business and theri details. Apard from this, yelp
+also holds photos dataset which is 7.50 gigabytes of compressed dataset,
+which are purely images of count nearly 200,000, for purposes like image
+analysis, apply machine learning and computer vision technologies. The
+text-based dataset is usually in JSON/ CSV, SQL format that can be
+downloaded from their website. In addition to this Yelp also gives
+access to their data through Yelp-Fusion. Yelp Fusion provides REST API
+to get access to search, business, metadata. This reduce lot of overload
+of downloading un-necessary data and gives the opportunity to choose
+selectively required paramets and leave the rest. This is advantageous
+not just in terms of space, but also the time taken using REST API is
+far more efficient and quick compared to the downloading such huge
+dataset and handling them again. Therefore,in order to make use of these
+REST API Authentication is required, which is recently modified to the
+Private Key authentication method, which is a simple 2 step process.
+Create an account, create manage app, fill in details and the private
+key is generated [@hid-sp18-602-yelp].
+
+### Docker
 
 Modern applications are often built using different technologies with
 different versions based on the application requirement. Deploying many
@@ -68,8 +93,7 @@ tools. There are less or no restrictions for docker usage, as containers
 can be built on any machine with Docker installed it is highly in use by
 DevOps [@hid-sp18-602-docker].
 
-Kubernetes
-----------
+### Kubernetes
 
 Although Docker makes it easy to deploy and run applications using
 container technology when it comes to application configuration, service
@@ -137,28 +161,6 @@ of a Pod could be run by just modifying the replicas label in the
 Replication Controller or using the replicas parameter in the kubectl
 scale command;
 
-Google Cloud Platform
----------------------
-
-Google Cloud platform gives the flexibility to scale quickly and handle
-intense data while having the luxury of not having to maintain the
-robust infrastructure, servers, networks etc and create business
-solutions. It provides Cloud shell, which comes with a package of a
-command-line tool, temporary VM instance of GEC, and access to Google
-API with implicit authorization [@hid-sp18-602-cloud-shell]. Also, it
-supports language such as Python, Java, Go, PHP,and Ruby. Moreover, the
-command-line tool exclusively supports Cloud SDK gcloud command line
-tool. The other alternative to Cloud Shell is to download Google Cloud
-SDK and enable Authorization through some keys.
-
-Google API
-----------
-
-Google API is a set of application programming interface which allows
-communication with google services and integration of other services. It
-is great tool for developers to perform operations and use its features
-easily, google map API, google Visualization API, good AJAX search are
-few examples.
 
 ### Cloud Vision API
 
@@ -181,77 +183,7 @@ possible through REST API and are available to use in different
 programming languages [@hid-sp18-602-cloud-vision].
 
 
-Yelp Dataset
-------------
-
-Yelp provides an open-source dataset for the challenge with students and
-university grads. The yelp data set is huge of nearly 2.66 gigabytes of
-dataset comprised of all the text details present in yelp, this may
-include all kinds of business and theri details. Apard from this, yelp
-also holds photos dataset which is 7.50 gigabytes of compressed dataset,
-which are purely images of count nearly 200,000, for purposes like image
-analysis, apply machine learning and computer vision technologies. The
-text-based dataset is usually in JSON/ CSV, SQL format that can be
-downloaded from their website. In addition to this Yelp also gives
-access to their data through Yelp-Fusion. Yelp Fusion provides REST API
-to get access to search, business, metadata. This reduce lot of overload
-of downloading un-necessary data and gives the opportunity to choose
-selectively required paramets and leave the rest. This is advantageous
-not just in terms of space, but also the time taken using REST API is
-far more efficient and quick compared to the downloading such huge
-dataset and handling them again. Therefore,in order to make use of these
-REST API Authentication is required, which is recently modified to the
-Private Key authentication method, which is a simple 2 step process.
-Create an account, create manage app, fill in details and the private
-key is generated [@hid-sp18-602-yelp].
-
-REST API
---------
-
-Representational state transfer (REST) is any interface between systems
-based on HTTP properties, web services to obtain data and send data. It
-is an architectural style that is as simple as function calls and it is
-adapted in various applications. REST API is of course central theme of
-this project. The main reason it is widely used across many programming
-applications is it can be easily used in sync with the other
-functionalities of the application. On the other hand REST API doesn't
-need any software or particular usage of protocl, it simply works with
-HTTP and many other protocol. In order to use for a specific server, the
-package to authenticate that server would need to be installed.
-
-There are 2 important aspects to the REST API is request and response
-object. The request sent to the API usaually includes the http url that
-serves as an endpoint to client or server and the parameters, header
-details that has to be sent according to your need. Whereas the response
-object consists of data that is returned upon the request call, is
-usually in some format such as XML, JSON format. JSON is Javascript
-Object Notation is a data format that is extensively used to expose API.
-This can be easily imported via package json. There are many popular
-function that can convert any data into JSON and vice-versa. Two of the
-popluar python based JSON encoder and decoder are JSON dump and JSON
-load. json.dump() function takes an json object and convert string-type
-data and json.load() converts data, from file-like objects and convert
-into JSON object. The response object is further stored and manipulated
-according to the requirements. The general requests are GET, POST, PUT,
-HEAD, DELETE, PATCH. In this project, mainly GET, POST request listed
-and explained briefly.
-
--   **GET Request** GET Request is used to request data from a
-    resources, and are stored in cache and so they have length
-    restriction which makes it necessary to send limited data via GET
-    Request. Hence a query string sent in the URL of a GET request has
-    carfully choosen parameters that are required. The data received
-    from the server with GET response is stored in response object which
-    could of JSON format.
-
--   **POST Request** POST request is used to send data to the server,
-    the data need not necessarly be the data that has to be stored in
-    the server, rather it could be credential details, or simply
-    acknowledgement. POST request are not cached and hence no
-    restrictons on data length. The data sent to the server with POST is
-    stored in the request body of the HTTP request.
-
-## Approach
+## Design
 
 
 The main aim of the application is to label photos from Yelp dataset
@@ -435,37 +367,6 @@ retrieves the data from `yelp_images.py`, passes photos to vision.py to
 label each one of them and stores using storage.py. As pub/sub enqueues
 the whole process in main.py, once the task is done, the frontend gets
 triggered.
-
-### Pods, Services, Deployments
-
-There is one yaml file for each of the microservice, which includes
-schema for service as well as deploymenet. The kubectl create -f
-\<file.yaml\> command included in the Makefile creates the pods,service
-and deployments. As discussed above the important parameter in general
-are type, label selector, replica, container image and the port where
-they are exposed. In this application the frontend service is created as
-type load balancer. This exposes the service outside of the cluster
-through an external IP. Once each of the pods are deployed, the
-application is production ready. The scalability is maintained with
-replica factor, which ensures deletion or failure of one or 2 pods
-doesn't stop the application from running. Also the constant updates are
-made easy with rollback.
-
-## Execution
-
-The execution of the application is incorporated through Makefile. Just
-by running make all inside yelplabel directory, will spin the docker
-container images, creation of pods,services and deployments. By
-executing the command "kubectl get pods" list all the pods created and
-"kubectl get services" will show the services up and running with their
-given IP address. The external IP of the frontend service, is available
-to curl or run in the browser. This is also the load-balancer for the
-application, so on request the traffic is diverted to other services
-within the internal port and the entire application is up and running.
-In order to delete all changes you can run the command,where as in order
-to delete services,pods and deployments you can run the command "kubectl
-delete --all" pods,servies,deployments.
-
 
 ## Results
 
