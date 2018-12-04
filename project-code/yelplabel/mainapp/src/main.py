@@ -1,47 +1,41 @@
+# Copyright 2015 Google Inc. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
+from google.cloud import pubsub
 import requests
+import psq
 import yelp_images
+from storage import Storage
 from vision import VisionApi
-from kafka import KafkaConsumer
-import json
 
+
+publisher=pubsub.PublisherClient()
+subscriber=pubsub.SubscriberClient()
 
 def label_images_task(image_urls):
     vision = VisionApi()
-    result={}
+    storage = Storage()
     for image_url in image_urls:
-        #image_content=requests.get(image_url)
-       
-        #print(image_url)
-        label=vision.detect_labels(image_url)
-        result[image_url]=label
-    return result
-
+        image_content=request.get(image_url)
+        label=vision.detect_labels(image_content)
+        storage.add_labels(label)
+        storage.add_image(image_url,label)
         
 def get_yelp_images(term,location):
-    result=label_images_task(yelp_images.query_api(term, location))
-    response={
-            'topic': 'labels',
-            'data':result
-            }
-    callProducer(response)
+    for image_urls in query_api(term, location):
+        q = psq.Queue(publisher,subscriber, 'project-223100')
+        q.enqueue('main.label_images_task', image_urls)
+        print("Enqueued {} images".format(len(image_urls)))
 
-def callProducer(result):
-    print("Msg to be sent to producer : {0}" .format(result))
-    headers = {"Content-type": "application/json"}
-    response = requests.post("http://localhost:4004/kafkaProducer", json.dumps(result), headers=headers)
-
-
-
-#get_yelp_images("food","Indianapolis")
-
-def get_input():
-    #consumer call
-    consumer = KafkaConsumer('SampleInput', bootstrap_servers='localhost:9092')
-    for message in consumer:
-        data=json.loads(message.value)
-        get_yelp_images(data['business'],data['location'])
-
-
-
-get_input()
+q = psq.Queue(publisher,subscriber,'project-223100')
