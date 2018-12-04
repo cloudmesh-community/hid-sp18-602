@@ -21,7 +21,7 @@ Assignments:
     
 chapter:
     - title: CloudAutoML
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/paper/content.tex (have to updated to paper.md)
+      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/paper/paper.md
       
 project:
     - title: Scalable Microservices to Label yelp images using Kuberenets 
