@@ -13,12 +13,8 @@
 Keywords: docker, vision, kubernetes, yelp, kafka
 
 ---
-
+## Abstarct (Have to be updated)
 ## Introduction
-
-:o: Can not be replicated
-
-:o: Missing Benchmark so a comparision is highlighted (that what a benchmark is)
 
 The applications are growing complex, not just functionality wise but
 also the data generated and used are highly increasing. This makes it
