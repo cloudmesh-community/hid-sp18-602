@@ -1,8 +1,16 @@
+# Cloud AutoML  :smiley: sp18-616-02 
+
+| Keerthi Naredla
+| knaredla@iu.edu
+| Indiana University, Bloomington
+| hid : sp18-616-02
+| github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/paper/paper.md)
+
 ---
-authors:
-- Keerthi Naredla
-title: Cloud AutoML
-...
+
+Keywords: Cloud AutoML, Neural, Google Cloud, Vision
+
+---
 
 Cloud AutoML is the state-of -the -art tool to design high-quality
 training and large-scale capable custom ML models. Using this, a user
