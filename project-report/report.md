@@ -6,11 +6,11 @@
 | Indiana University Bloomington
 | hid: sp18-616-02
 | github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/project-report/report.md)
-| code: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code
+| code: [:cloud:] (https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code)
 
 ---
 
-Keywords: docker, vision, kubernetes, yelp, redis, pub/sub
+Keywords: docker, vision, kubernetes, yelp, kafka
 
 ---
 
@@ -19,9 +19,6 @@ Keywords: docker, vision, kubernetes, yelp, redis, pub/sub
 :o: Can not be replicated
 
 :o: Missing Benchmark so a comparision is highlighted (that what a benchmark is)
-
-:o: All sections have to be revisited as sections wer done wrong possibly even in the original 
-latex file. Take a look at the TOC.
 
 The applications are growing complex, not just functionality wise but
 also the data generated and used are highly increasing. This makes it
@@ -163,22 +160,6 @@ is great tool for developers to perform operations and use its features
 easily, google map API, google Visualization API, good AJAX search are
 few examples.
 
-### Cloud Pub/Sub API
-
-Cloud Pub/Sub API is a message passing product that is highly useful for
-communication between independent applications hosted on Google Cloud
-Platform. The concept of Cloud Pub/Sub has 2 endpoints sender and
-receiver and having one instance cloud pub/sub would allow interaction
-between many applications. The main advantage of Pub/Sub compared to
-other messaging tools like RabbitMQ is it is asynchronous and decouples
-publisher from Subscribers, that is any Client who subscribed as Sender
-or Publisher can send, Receive messages irrespective of the client on
-the other side. In this project psq: Cloud Pub/Sub, a powerful, scalable
-and reliable messaging tool, implemented using Python is used. It has
-features similar to rq, simpleq and celery. It forms the basis for
-communication between microservices, especially main application and
-frontend [@hid-sp18-602-pub-sub].
-
 ### Cloud Vision API
 
 Cloud Vision API is the most popular API that Google has till date. It
@@ -199,29 +180,6 @@ basic feature of labeling the images such as data in Google is quite
 possible through REST API and are available to use in different
 programming languages [@hid-sp18-602-cloud-vision].
 
-Redis
------
-
-Redis is open source in memory database and is useful as database, cache
-and message broker. It has different data structures, remote, persistent
-and scalable to address wide variety of problems [@hid-sp18-602-redis].
-The redis-cli command line tool allows to run command and get details of
-the clients link to redis-database, configuration and monitor command
-allows to check how server is responding to requests from client to read
-or wrtie data. The redis-py package is a python implemenation to
-interact with Redis storage. With popularity of Kubernetes, The
-Redis-Enterprise version is exclusively built to use with kubernetes.
-The documentation provides easy steps to create Redis cluster and link
-with one or more pods running on the kubernetes. All the features of
-kubernetes to replicate, scale and assign port are leveraged to
-Redis-cluter, this is gives immense opportunity to work with multiple
-pods, connecting to one-single redis cluster, along with a private redis
-container on each of the pods. Another main reason for extending redis
-to kubernets is the increase in usage of its docker image hosted in
-docker.hub public repository. In this project StrictRedis class of Redis
-is used to connect with Redis backend storage. It gives access to simple
-functions like sadd,smemeber,sget to get and set key-value pair objects
-in-memory database of redis [@hid-sp18-602-redis].
 
 Yelp Dataset
 ------------
@@ -508,20 +466,6 @@ In order to delete all changes you can run the command,where as in order
 to delete services,pods and deployments you can run the command "kubectl
 delete --all" pods,servies,deployments.
 
-Challenges
-----------
-
-As there are lot of advanced technology out which share same sort of
-features it is debatable to choose the right technology stack in order
-to develop an application, that atleast meet the requirements and
-dvelopemnt practices mentioned in 12app-factor. For instance, this
-application can be implemented with Google Bucket Storage instead of
-Redis as it also satisfies with key-value kind of storage system. The
-debug aspect is the challenge because of the layers of abstraction over
-the microservices, the deployments and everything works fine if there
-exists an error within one of the microservices, which gets hard to
-figure out at times. To an extent we can make use of kubectl logs and
-google cloud provide error report.
 
 ## Results
 
@@ -535,8 +479,7 @@ business for the search results are choosen and the image.annotate
 request is reiterated for 3 times to make sure best label suitable label
 is detected for the image, if not in a single request.
 
-Benchmark
----------
+## Benchmark (Have to be updated)
 
 Deploying the application is made easy with the use of Docker and
 Kubernetes. The Makefile and Docker file included installs all the
@@ -562,29 +505,6 @@ with the support of redis storage technology, follows MVC architecture
 workflow which important dier in application deployment. With Kubernetes
 not just orchestration of docker components but the flexibility,
 scalability for the deployment of microservices is highly achieved.
-
-## Future Scope
-
-:o: this is not an experinece report. If you do a future scope we will keep the incomplete till you finished it.
-Otherwise the section is called limitations or something like that
-
-I attempted to make use of Cloud AutoML, Vision API to label MNIST
-dataset as a part of this project, but unfortunately teh cloud AutoML
-gives access to specific user to customize the pre-trained ML model
-based on Google Cloud Vision. 
-
-:o: We do not understand thsi limitation
-
-This is a huge dataset of NIST authorized
-handwritten dataset, highly used for testing the accuracy of ML models
-for Computer Vision and Image Analysis. Using the same or more
-technology stack, I would like to work on MNIST dataset to detect and
-label handwritten images as side-project,irrespective of my class
-schedule, during upcoming semester with the guidance of the professor
-Dr.Gregor von Laszewski.
-
-:o: certainly you can do this, you will have to take an indepoendent study.
-Its like the class with 100% focus on report.
 
 ## Acknowledgement
 
