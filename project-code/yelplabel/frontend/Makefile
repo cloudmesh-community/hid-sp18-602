@@ -6,5 +6,6 @@ all:
 
 .PHONY: clean
 
-clean:	
-	kubectl delete --ignore-not-found -f frontend_service.yml
+clean:
+	kubectl delete pods,services,deployments --all 
+
