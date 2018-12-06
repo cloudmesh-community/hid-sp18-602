@@ -2,9 +2,11 @@
 import requests
 import yelp_images
 from vision import VisionApi
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer,KafkaProducer
 import json
 
+producer = KafkaProducer (value_serializer=lambda m: json.dumps(m).encode('ascii'),bootstrap_servers='localhost:9092')
+consumer = KafkaConsumer('SampleInput', bootstrap_servers='localhost:9092')
 
 def label_images_task(image_urls):
     vision = VisionApi()
@@ -15,16 +17,14 @@ def label_images_task(image_urls):
         #print(image_url)
         label=vision.detect_labels(image_url)
         result[image_url]=label
-    return result
+        future = producer.send('labels', {image_url:label})
+        
+        
 
         
 def get_yelp_images(term,location):
-    result=label_images_task(yelp_images.query_api(term, location))
-    response={
-            'topic': 'labels',
-            'data':result
-            }
-    callProducer(response)
+    label_images_task(yelp_images.query_api(term, location))
+
 
 def callProducer(result):
     print("Msg to be sent to producer : {0}" .format(result))
@@ -37,9 +37,9 @@ def callProducer(result):
 
 def get_input():
     #consumer call
-    consumer = KafkaConsumer('SampleInput', bootstrap_servers='localhost:9092')
     for message in consumer:
         data=json.loads(message.value)
+        print(data)
         get_yelp_images(data['business'],data['location'])
 
 
