@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 
 from __future__ import print_function
 
@@ -125,5 +125,5 @@ def query_api(term, location):
 
     return photos
 
-#print(query_api(DEFAULT_TERM,DEFAULT_LOCATION))
+
       
