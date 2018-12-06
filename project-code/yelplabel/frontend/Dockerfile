@@ -1,19 +1,14 @@
-# For more information about this base image and dockerfile, see
-# https://github.com/GoogleCloudPlatform/python-docker
-FROM gcr.io/google_appengine/python
+FROM python:3
 
-RUN virtualenv /env
+COPY ./requirements.txt /src/requirements.txt
 
-ENV VIRTUAL_ENV /env
-ENV PATH /env/bin:$PATH
+WORKDIR /src
 
-ADD src/requirements.txt /app/requirements.txt
-RUN pip install -r /app/requirements.txt
+RUN pip install -r requirements.txt
 
-ADD src /app
+COPY . /src
 
-CMD gunicorn -w 4 -b :$PORT main:app
 
-#RUN pip install -r src/requirements.txt
+ENTRYPOINT [ "python" ]
 
-#CMD gunicorn -w 4 -b :$PORT main:src
+CMD [ "src/main.py" ]
