@@ -43,8 +43,7 @@ Authentication in order to make use of Google API's.
 * Copy paste the external IP of the yelplabel-frontend service, which
   is type Load-Balancer and port, on to your browser, and 
 
-* It takes few sec for the images to load from  yelp dataset and label them
-  using Vision API. After, few minutes, the browser will be populated
-  with labeled images.
+* It takes few seconds for the images to load from  yelp dataset and label them
+  using Vision API. Then the browser should be populated with labeled images.
 
 
