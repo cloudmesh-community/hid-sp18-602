@@ -174,8 +174,9 @@ of a Pod could be run by just modifying the replicas label in the
 Replication Controller or using the replicas parameter in the kubectl
 scale command;
 
-### Kafka
+### Apache Kafka
 
+Apache Kafka is a open source, real-time distributed streaming platform. It originally started as a research project at LinkedIn and later launched as open-source project with wide-range of active contributors. There are three main use cases for Kafka such as publish ,subscribe to topics od data to receive and send,  kafka stremas API used for microservices that require real-time continuous flow of records, Kafka as a Storage system can used for multiple puposes especially logging across distirbuted systems would be a good implementation. Deploying Apache Kafka on kubernets has recently evolved and there is lot of scope for scalbility and high availability with kubernetes. Further, Kafka has to connected with Zookeeper service discovery concept and it is must that Zookeeper is up and running for Kafka to work as expected. And this has further benfits, as Zookeeper can be used for other microservices for thier own puposes like service discovery, logging and so on.
 
 
 ## Design
@@ -304,7 +305,7 @@ order to populate the page with resulting images-label pair.
 The mainapp provides the actual functionality of the application,
 starting from scraping the data to generating the desired output. The
 major functionalities involved in the service is divided into
-main.py,`yelp_label.py`, vision.py and storage.py. Each is further
+main.py,`yelp_label.py` and vision.py. Each is further
 modularized with function, which are briefly explained in below
 paragraphs.
 
@@ -345,22 +346,11 @@ consists of details of the image such as score, confidence, location,
 and so on. The label annotation is return to the calling function for
 the sent image url.
 
-In storage.py, StrictRedis class is imported to instantiate redis
-object. The redis in memory storage is very useful because of it's
-ability to store objects in key-value pair. Taking advantage of this all
-labels are stored with labels as key and label name as the value. Also
-for each label as key the image url is stored as value . This makes very
-easy to retrieve data in the frontend service,by just simply looking for
-the associated imageurl for the label in the list of
-labels [@hid-sp18-602-redis-implementation].The `add_labels` function
-stores all the annotated label for photos into a labels list and
-`add_image` fucntion stores label and photo as key-value pair.
+
 
 To summarize, main.py brings together all the above functionalities, it
 retrieves the data from `yelp_images.py`, passes photos to vision.py to
-label each one of them and stores using storage.py. As pub/sub enqueues
-the whole process in main.py, once the task is done, the frontend gets
-triggered.
+label each one of them and stores using storage.py.
 
 ## Results
 
@@ -381,18 +371,12 @@ is detected for the image, if not in a single request.
 Deploying the application is made easy with the use of Docker and
 Kubernetes. The Makefile and Docker file included installs all the
 necessary dependecies to creating pods,services and deployments. This
-takes around 2-3 minutes to generate the external IP address.The runtime
+takes atleast turnaround time of one minute on average to generate the external IP address.The runtime
 analysis of the application, depends on the dataset volume for the given
-input, as a result it takes few minutes for the label-detection and
+input, as a result it takes throughput of .... for the label-detection and
 showcasing the results on the browser. The benchmark for this project
-extensively depends on Cloud Vision API and Redis Storage. As Redis
-operates as in-memory database with key-value storage it servers the
-applications purpose in retrieving,storing labels,imageurl in efficient
-amount of time. Whereas the Cloud vision API although it has good
-reputation to show accurate results, the bath processing for the images
-is limited. Moroever, the challenge with yelp photos is to able to
-distinguish between different varities of in food catgoery, for
-instance.
+extensively depends on Cloud Vision API as the bath processing for the images
+is limited. The application is deployed on two major cloud platforms Google Cloud and AWS. The throughput is calculated using the timestamp log and Jmeter. The below comparision graphs is generated using python script,matlab and Jmeter.
 
 ## Conclusion
 
