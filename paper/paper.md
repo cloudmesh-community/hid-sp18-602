@@ -6,7 +6,6 @@
 | hid : sp18-616-02
 | github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/paper/paper.md)
 
-:o: all your headers are wrong
 
 ---
 
@@ -31,8 +30,7 @@ This section gives a brief introduction to Cloud AutoML, the technology
 behind its functioning,and the importance of Google Cloud in Cloud
 AutoML.
 
-Introduction
-============
+## Introduction
 
 Cloud AutoML is an innovative tool with simple graphical user interface
 to train and test users custom machine learning models. This is a result
@@ -86,8 +84,7 @@ images captured in order to analyze and understand animal motions,
 distribution and human impact on
 wildlife @hid-sp18-602-cloud-automl-launch.
 
-Mechnism
-========
+## Mechnism
 
 This is section is based on Google’s 2017 paper on Neural Architecture
 Search with Reinforcement Learning, by Bareet Zoph,Quoc V.Le Google
@@ -137,8 +134,7 @@ Hence Neural Architecture Search achives building best models from
 scratch, with less human intervention, less time and high test set
 accuracy @hid-sp18-602-cloud-automl-mechanism.
 
-Role of Google Cloud
-====================
+## Role of Google Cloud
 
 Google Cloud is the one of prerequisites for functioning of Cloud AI
 services such as Cloud ML Engine, Dialogflow,Google Cloud Job Search and
@@ -187,8 +183,7 @@ run machine learning worklaods on Compute Engine when required. Thus,
 Gloogle Cloud Services comes with all of these resouces which play a key
 role in Cloud Automl and other Cloud AI products.
 
-Conclusion
-==========
+## Conclusion
 
 Cloud AutoML is certainly a mission to get profound concepts ML,AI, deep
 learning neural networks into usage for any company. Google terms this
