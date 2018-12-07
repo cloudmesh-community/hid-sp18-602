@@ -13,7 +13,9 @@
 Keywords: docker, vision, kubernetes, yelp, kafka
 
 ---
-## Abstarct (Have to be updated)
+## Abstarct 
+Automated Machine Learning is the emerging technology now from startups to major tech firms. The first most popularly used in the era of AutoML is Google Cloud AutoML which has suit of products including Vision, NLP, Speech, Translation and so on. Again in each of these products emphasis is made on important feature set, for instance in Cloud Vision there This project is an application of  Cloud Vision Api to label images from yelp dataset. The project is built in microservices architecture and deployed using kubernetes. The message broker Kafka is used to communicate between the microservices. This paper briefly discusses the technologies used for the implemenation of the project, the project setup, results and deployment benchmarks.
+
 ## Introduction
 
 The applications are growing complex, not just functionality wise but
@@ -173,6 +175,8 @@ Replication Controller or using the replicas parameter in the kubectl
 scale command;
 
 ### Kafka
+
+
 
 ## Design
 

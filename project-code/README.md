@@ -19,9 +19,9 @@ application to label images from Yelp photos dataset is built.
 
 * Create a project which biling.
 
-* Enable the Vision and Pub/Sub APIs.
+* Enable the Vision API.
 
-The project is done using Cloud Shell in Google Cloud Platform. In
+The project can be easily replicated on Google Cloud Platform becasue it requires google api clients to use vision API. In
 order to build the porject on Google console it is required to
 download Cloud SDK, intialize gcloud command-line tool and set
 Authentication in order to make use of Google API's.
@@ -41,19 +41,9 @@ Authentication in order to make use of Google API's.
 	```kubectl get services```
 
 * Copy paste the external IP of the yelplabel-frontend service, which
-  is type Load-Balancer, on to your browser, and click then Start the
-  Labeling button.
+  is type Load-Balancer and port, on to your browser, and 
 
-* It takes some time to retreive all the data from yelp and label them
-  using Vision API. After, few minutes, the browser will be populated
-  with labeled photos from yelp dataset
+* It takes few seconds for the images to load from  yelp dataset and label them
+  using Vision API. Then the browser should be populated with labeled images.
 
-## References
 
-https://classroom.udacity.com/courses/ud615
-
-https://cloud.google.com/vision/docs/
-
-https://www.yelp.com/developers/documentation/v3/get_started
-
-https://github.com/GoogleCloudPlatform/psq
