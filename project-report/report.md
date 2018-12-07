@@ -38,23 +38,38 @@ introduced to better understand the working of the application.
 Yelp provides an open-source dataset for the challenge with students and
 university grads. The yelp data set is huge of nearly 2.66 gigabytes of
 dataset comprised of all the text details present in yelp, this may
-include all kinds of business and theri details. Apard from this, yelp
+include all kinds of business and theri details. Apart from this, yelp
 also holds photos dataset which is 7.50 gigabytes of compressed dataset,
 which are purely images of count nearly 200,000, for purposes like image
 analysis, apply machine learning and computer vision technologies. The
 text-based dataset is usually in JSON/ CSV, SQL format that can be
 downloaded from their website. In addition to this Yelp also gives
-access to their data through Yelp-Fusion. Yelp Fusion provides REST API
-to get access to search, business, metadata. This reduce lot of overload
-of downloading un-necessary data and gives the opportunity to choose
-selectively required paramets and leave the rest. This is advantageous
-not just in terms of space, but also the time taken using REST API is
-far more efficient and quick compared to the downloading such huge
-dataset and handling them again. Therefore,in order to make use of these
-REST API Authentication is required, which is recently modified to the
-Private Key authentication method, which is a simple 2 step process.
-Create an account, create manage app, fill in details and the private
-key is generated [@hid-sp18-602-yelp].
+access to their data through Yelp-Fusion. 
+
+#### Yelp Fusion API
+
+On Yelp Developers blog different open source tools that leverage access to retrieve,test,implement on yelp dataset.
+Yelp Fusion is a REST API, which can be integrated simply by generating and importing API token key into your program. This gives access to a variety of feature data such as business, locations,reviews, images,metadata and also a sepecific search url available to query on each of these features. This is very efficient on fetching data on fly with out additional storage disk space and based on your requirements steps like data scraping,cleaning, pre-processing can also be skipped. But the number of time data fetch is limited, if the data set is changes or some part of it is removed then it might affect your analysis. However, using Yelp Fusion REST API is easy and feasible with minimal system requirements, and on average no or very less downtime[@hid-sp18-602-yelp].
+
+### Cloud Vision API
+
+Cloud Vision API is the most popular API that Google has till date. It
+is very easy and efficient to analyze the content of the image, which
+has state-of-the art tools for Image detecting features like: face,
+text, label and document text,web detection. It is further made easy to
+use, through Cloud AutoML suite. Using Vision AutoML, it is just one
+click away to upload images and run pre-determined, custom machine
+learning models. It is built based on Google's powerful technology of
+learning-to learn, neural network architecture. In fact, building custom
+ML model is just few steps [@hid-sp18-602-cloud-automl]. First,
+uploading training dataset with images labeled into google bucket or
+human-support to label images and the ML model is trained according to
+the provided dataset. And then test data is passed, and accuracy of
+prediction, classification of test data set is determined. However, this
+feature of Cloud AutoML is accessible to only limited customers, but the
+basic feature of labeling the images such as data in Google is quite
+possible through REST API and are available to use in different
+programming languages [@hid-sp18-602-cloud-vision].
 
 ### Docker
 
@@ -157,30 +172,9 @@ of a Pod could be run by just modifying the replicas label in the
 Replication Controller or using the replicas parameter in the kubectl
 scale command;
 
-
-### Cloud Vision API
-
-Cloud Vision API is the most popular API that Google has till date. It
-is very easy and efficient to analyze the content of the image, which
-has state-of-the art tools for Image detecting features like: face,
-text, label and document text,web detection. It is further made easy to
-use, through Cloud AutoML suite. Using Vision AutoML, it is just one
-click away to upload images and run pre-determined, custom machine
-learning models. It is built based on Google's powerful technology of
-learning-to learn, neural network architecture. In fact, building custom
-ML model is just few steps [@hid-sp18-602-cloud-automl]. First,
-uploading training dataset with images labeled into google bucket or
-human-support to label images and the ML model is trained according to
-the provided dataset. And then test data is passed, and accuracy of
-prediction, classification of test data set is determined. However, this
-feature of Cloud AutoML is accessible to only limited customers, but the
-basic feature of labeling the images such as data in Google is quite
-possible through REST API and are available to use in different
-programming languages [@hid-sp18-602-cloud-vision].
-
+### Kafka
 
 ## Design
-
 
 The main aim of the application is to label photos from Yelp dataset
 retrieved on passing location and search term such as food, dinner,
@@ -366,17 +360,19 @@ triggered.
 
 ## Results
 
+![A simple flow chart](images/from-one-to-the-other.png){#fig:fromonetotheorther}
+
 The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
-imageurl pair retrieved from redis. As the cloud-vision api is a
+imageurl pair received by kafka consumer on topic labels. As the cloud-vision api is a
 pre-trained model on huge dataset of Google, the label detection is
-done, in less amount of time and with high-accuracy rate in terms of
-average score is 0.75. For this application, only photos of top 10
-business for the search results are choosen and the image.annotate
-request is reiterated for 3 times to make sure best label suitable label
+with atleast accuray rate ............average score is 0.75.........time.......for images count.
+For this application, images of top 10
+business for user input business category and location are generated and the image.annotate
+request is reiterated for 3 times to make sure highly accurate label
 is detected for the image, if not in a single request.
 
-## Benchmark (Have to be updated)
+## Benchmark 
 
 Deploying the application is made easy with the use of Docker and
 Kubernetes. The Makefile and Docker file included installs all the
