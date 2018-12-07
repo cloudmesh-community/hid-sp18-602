@@ -1,5 +1,5 @@
 
-# Scalable Microservices to Label yelp images using Kuberenets :smiley: sp18-616-02
+# Scalable Microservices to Label yelp images using Kuberenets :hand: sp18-616-02
 
 | Keerthi Naredla
 | knaredla@iu.edu
@@ -355,6 +355,11 @@ label each one of them and stores using storage.py.
 ## Results
 
 ![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
+```
++@fig:yelp_images_labeled is the result of this project when user provided input of business =food and location= Indianapolis
+
+![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
+```
 
 The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
