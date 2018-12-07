@@ -364,7 +364,7 @@ triggered.
 
 ## Results
 
-![A simple flow chart](images/from-one-to-the-other.png){#fig:fromonetotheorther}
+![yelp_images_labeled](results/result.png){#fig:yelp_images_labeled}
 
 The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
