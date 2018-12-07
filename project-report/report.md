@@ -354,7 +354,7 @@ label each one of them and stores using storage.py.
 
 ## Results
 
-![yelp_images_labeled](blob/master/project-report/results/result.PNG){#fig:yelp_images_labeled}
+![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
 
 The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
