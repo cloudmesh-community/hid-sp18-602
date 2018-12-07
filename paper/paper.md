@@ -6,6 +6,8 @@
 | hid : sp18-616-02
 | github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/paper/paper.md)
 
+:o: all your headers are wrong
+
 ---
 
 Keywords: Cloud AutoML, Neural, Google Cloud, Vision
