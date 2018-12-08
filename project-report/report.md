@@ -330,7 +330,7 @@ is detected for the image, if not in a single request.
 
 ## Benchmark 
 
-![with_and_without_kubernetes](images/performance.PNG){#fig:with_and_without_kubernetes}
+![with_and_without_kubernetes](images/benchmark.PNG){#fig:with_and_without_kubernetes}
 ```
 +@fig:Throughput calculated based on timestamp with and without kubernetes on Google Cloud Platform
 
