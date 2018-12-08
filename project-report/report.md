@@ -14,7 +14,7 @@ Keywords: docker, vision, kubernetes, yelp, kafka
 
 ---
 ## Abstarct 
-Automated Machine Learning is the emerging technology now from startups to major tech firms. The first most popularly used in the era of AutoML is Google Cloud AutoML which has suit of products including Vision, NLP, Speech, Translation and so on. Again in each of these products emphasis is made on important feature set, for instance in Cloud Vision there This project is an application of  Cloud Vision Api to label images from yelp dataset. The project is built in microservices architecture and deployed using kubernetes. The message broker Kafka is used to communicate between the microservices. This paper briefly discusses the technologies used for the implemenation of the project, the project setup, results and deployment benchmarks.
+Automated Machine Learning is the emerging technology now from startups to major tech firms. One of the most popularly used in the era of AutoML is Google Cloud AutoML which has suit of products including Vision, NLP, Speech, Translation and so on. Again in each of these products emphasis is made on important feature set, for instance in Cloud Vision there are label detection,face recognition etc. This project is an application of  Cloud Vision Api to label images from yelp dataset. The project is built in microservices architecture and deployed using kubernetes. The message broker Kafka is used to communicate between the microservices. This paper briefly discusses the technologies used for the implemenation of the project, the project setup, results and deployment benchmarks.
 
 ## Introduction
 
@@ -190,7 +190,7 @@ explained below along with intial setup.
 ### Initial Setup
 
 As mentioned above,the application requires 2 important API Cloud Vision
-API and Pub/Sub API, which have to enabled for the specific project id,
+API which has to enabled for the specific project id,
 the application can be started, in google cloud console. The best part
 for a software developer to test the working application is to launch
 directly using gcloud command-line tool, as it doesn't require
@@ -269,25 +269,7 @@ application.
     fonts, material icons and for other design can be selectively picked
     from material designs stored at google storage.
 
-In this frontend, the main.py imports flask and it is the main program
-that connect the frontend and server calls to the storage.py where
-StrictRedis of REdis is imported and labels, respective imageurl stored
-are retrieved. The received data from storage,py are then passed on the
-web page via `render_template()`, this will send the the html page to
-view and also passes the data required. There are 2 views enabled in the
-webpage. The intial view consists of 2 input text box for user to enter
-location and category. This information is routed to `get_yelp_images()`
-function in mainapp via pubsub client. This enables the whole process of
-extracting photos of the top 10 business from the search results based
-on the location and term and then store their urls with annotations
-detected using vision api, in redis storage. After that process ends and
-the redis storage now has the relevant data, the 2nd view is activated
-with the labels and images as the storage.py functions in the forntend
-responds. Thus each of the services are very much linked to the frontend
-service, it is like the start and endpoint of the project. Once the
-images with labels are loaded, how many ever times you refresh you don't
-see a change in the display because the data retrievd via storage.py
-doesn't change. As the frontend service is deployed as a load-balancer
+In this frontend, the main.py is developed using python flask and it uses kafka producer and consumer to communicate with the backend service. As the frontend service is deployed as a load-balancer
 service an external IP is provided which enables user to access outside
 of the cluster through a web-browser.
 
@@ -346,11 +328,9 @@ consists of details of the image such as score, confidence, location,
 and so on. The label annotation is return to the calling function for
 the sent image url.
 
-
-
 To summarize, main.py brings together all the above functionalities, it
 retrieves the data from `yelp_images.py`, passes photos to vision.py to
-label each one of them and stores using storage.py.
+label each one of them, after completion it produces to labeled images to frontend service.
 
 ## Results
 
@@ -411,15 +391,13 @@ is limited. The application is deployed on two major cloud platforms Google Clou
 
 ## Conclusion
 
-Thus application to scrape data from yelp-fust thion API and detect
-label using Cloud Vision api, which is neatly displayed on a browser
-with the support of redis storage technology, follows MVC architecture
-workflow which important dier in application deployment. With Kubernetes
+The application to retrieve images from yelp-fusion API and detect
+label using Cloud Vision api is developed using microservices and kafka.With Kubernetes
 not just orchestration of docker components but the flexibility,
-scalability for the deployment of microservices is highly achieved.
+scalability of the deployment of microservices becomes efficient.
 
 ## Acknowledgement
 
-The authors would like to thank Dr.Gregor von Laszewski for his support
-and suggestions to write this paper.
+The author would like to thank Dr.Gregor von Laszewski for his support
+and guidance throughout the course of project development.
 
