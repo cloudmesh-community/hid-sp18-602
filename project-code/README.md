@@ -29,7 +29,7 @@ Authentication in order to make use of Google API's.
 
 * Enter the project-code/broker directory and run command the below to start kafka-broker
 
-      ```docker-compose kafka-zoo.yaml up```
+        ```docker-compose -f kafka-zoo.yaml up```
     
 * Now, open second tab (in google cloud console/terminal on your machine) and go to project directory
 
