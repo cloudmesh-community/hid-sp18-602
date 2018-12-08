@@ -4,18 +4,17 @@ The main purpose of the porject is to understad the Microservices
 architecture using Kubernetes. In order to achieve this, an
 application to label images from Yelp photos dataset is built.
 
-* Technologies Used: Docker,Kubernetes,Redis,Cloud Vision API, Pub/Sub
-  API, Cloud Shell,Python, HTML,CSS:Google Material Design
+* Technologies Used: Docker,Kubernetes,Kafka,Cloud Vision API,
+Cloud Shell,Python, HTML,CSS:Google Material Design
 
 ## Acknowledgement 
 
 * Thanks to Professor Gregor Von Laszewski for support and guidance to
   do this project.
 
-
 ## Prequesite
 
-* Create a service account on the Google Cloud Platform Console .
+* Create a service account on the Google Cloud Platform.
 
 * Create a project which biling.
 
@@ -28,9 +27,13 @@ Authentication in order to make use of Google API's.
 
 ## Project Setup
 
-* Enter the yelplabel directory, and run the command.
+* Enter the project-code/broker directory and run command the below to start kafka-broker
 
-   ``` make all ```
+       ```docker-compose kafka-zoo.yaml up```
+    
+* Now, open second tab (in google cloud console/terminal on your machine) and go to project directory
+
+	```make```
 
 * Once the make is done, verify the pods by running 
 
@@ -40,8 +43,7 @@ Authentication in order to make use of Google API's.
 
 	```kubectl get services```
 
-* Copy paste the external IP of the yelplabel-frontend service, which
-  is type Load-Balancer and port, on to your browser, and 
+* Once you see all the services deployed are successfully created, copy and paste the external IP of the yelplabel-frontend service, which  is type Load-Balancer and port, on to your browser 
 
 * It takes few seconds for the images to load from  yelp dataset and label them
   using Vision API. Then the browser should be populated with labeled images.
