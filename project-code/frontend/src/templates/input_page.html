@@ -1,0 +1,21 @@
+te.html" %}
+
+{% block content %}
+  {% if not labels %}
+    <div class="crawl-card mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title mdl-card--expand">
+        <h4>
+          Enter Business Ex: Food and Location Ex: San Fransico, CA and click Submit. The images with labels start appearing.
+        </h4>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+      <form action = "localhost:8080/inputs" method = "POST">
+         <p>Business <input type = "text" name = "business" /></p>
+         <p>Location <input type = "text" name = "location" /></p>
+         <p><input type = "submit" value = "submit" /></p>
+      </form>
+         <button a href="/display_results"> RECHECK </button>
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}
