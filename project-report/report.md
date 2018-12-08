@@ -330,6 +330,13 @@ is detected for the image, if not in a single request.
 
 ## Benchmark 
 
+![with_and_without_kubernetes](images/performance.PNG){#fig:with_and_without_kubernetes}
+```
++@fig:Throughput calculated based on timestamp with and without kubernetes on Google Cloud Platform
+
+![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
+```
+
 ![google_cloud_log](images/gc.PNG){#fig:google_cloud_log}
 ```
 +@fig:Throughput calculated based on timestamp in container logs when deployed on Google Cloud
@@ -354,15 +361,10 @@ is detected for the image, if not in a single request.
 
 ![aws_stat](images/awsStat.PNG){#fig:aws_stat}
 ```
-Deploying the application is made easy with the use of Docker and
-Kubernetes. The Makefile and Docker file included installs all the
-necessary dependencies to creating pods, services, and deployments. This
-takes at least turnaround time of one minute on average to generate the external IP address. The runtime
-analysis of the application, depends on the dataset volume for the given
-input, as a result, it takes throughput of for the label-detection and
-showcasing the results on the browser. The benchmark for this project
-extensively depends on Cloud Vision API as the bath processing for the images
-is limited. The application is deployed on two major cloud platforms Google Cloud and AWS. The throughput is calculated using the timestamp log. The below comparison graphs is generated based on logs, kuberenets dashboard.
+The applciation is deployed using kubernetes on google cloud platform and AWS platform. The benchmark analysis is based on the comparision of throughput which is time taken for the to label images by the backed service and display to the user. The x-axis of the first 2 graphs is the timestamp difference and on y-axis the number of buisness from which images are retrieved for the given category. Apart from that, when the applciation is deployed on average it takes at least of 55 seconds to generate the external IP address. The graph showing usage of the resources is captured from kuberenets dashboard. The benchmark for this project
+extensively depends on Cloud Vision API as the batch processing for the images
+is limited and this can effect the throughput for the label-detection and
+showcasing the results on the browser. 
 
 
 ## Conclusion
