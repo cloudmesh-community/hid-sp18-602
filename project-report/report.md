@@ -356,7 +356,8 @@ label each one of them and stores using storage.py.
 
 ![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
 ```
-+@fig:yelp_images_labeled is the result of this project when user provided input of business =food and location= Indianapolis
++@fig:yelp_images_labeled is the result of this project when user 
+provided input of business=food and location=Indianapolis
 
 ![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
 ```
@@ -365,7 +366,7 @@ The results of the project is to display labeled images from Yelp photos
 dataset. And this ahiecved by populating the browser with the label and
 imageurl pair received by kafka consumer on topic labels. As the cloud-vision api is a
 pre-trained model on huge dataset of Google, the label detection is
-with atleast accuray rate ............average score is 0.75.........time.......for images count.
+with on average measure of 0.8161305 score, and 0.8161305 topicality.
 For this application, images of top 10
 business for user input business category and location are generated and the image.annotate
 request is reiterated for 3 times to make sure highly accurate label
@@ -373,15 +374,20 @@ is detected for the image, if not in a single request.
 
 ## Benchmark 
 
+![google_cloud_log](images/gc.PNG){#fig:google_cloud_log}
+![aws_log](images/aws.PNG){#fig:aws_log}
+![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
+![aws_stat](images/awsStat.PNG){#fig:aws_stat}
 Deploying the application is made easy with the use of Docker and
 Kubernetes. The Makefile and Docker file included installs all the
 necessary dependecies to creating pods,services and deployments. This
 takes atleast turnaround time of one minute on average to generate the external IP address.The runtime
 analysis of the application, depends on the dataset volume for the given
-input, as a result it takes throughput of .... for the label-detection and
+input, as a result it takes throughput of for the label-detection and
 showcasing the results on the browser. The benchmark for this project
 extensively depends on Cloud Vision API as the bath processing for the images
-is limited. The application is deployed on two major cloud platforms Google Cloud and AWS. The throughput is calculated using the timestamp log and Jmeter. The below comparision graphs is generated using python script,matlab and Jmeter.
+is limited. The application is deployed on two major cloud platforms Google Cloud and AWS. The throughput is calculated using the timestamp log. The below comparision graphs is generated based on logs, kuberenets dashboard.
+
 
 ## Conclusion
 
