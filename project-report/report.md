@@ -1,5 +1,5 @@
 
-# Scalable Microservices to Label yelp images using Kuberenets :hand: sp18-616-02
+# Scalable Microservices to Label yelp images using Kuberenets :smiley: sp18-616-02
 
 | Keerthi Naredla
 | knaredla@iu.edu
@@ -354,7 +354,7 @@ label each one of them and stores using storage.py.
 
 ## Results
 
-![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
+![yelp_images_labeled](images/result.PNG){#fig:yelp_images_labeled}
 ```
 +@fig:yelp_images_labeled is the result of this project when user 
 provided input of business=food and location=Indianapolis
@@ -375,9 +375,29 @@ is detected for the image, if not in a single request.
 ## Benchmark 
 
 ![google_cloud_log](images/gc.PNG){#fig:google_cloud_log}
+```
++@fig:Throughput calculated based on timestamp in container logs when deployed on Google Cloud
+
+![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
+```
 ![aws_log](images/aws.PNG){#fig:aws_log}
+```
++@fig:Throughput calculated based on timestamp in container logs when deployed on AWS
+
+![aws_log](images/aws.PNG){#fig:aws_log}
+```
 ![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
+```
++@fig:Stat from kubernetes dashboard when application is deployed on Google Cloud
+
+![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
+```
 ![aws_stat](images/awsStat.PNG){#fig:aws_stat}
+```
++@fig:Stat from kubernetes dashboard when application is deployed on AWS
+
+![aws_stat](images/awsStat.PNG){#fig:aws_stat}
+```
 Deploying the application is made easy with the use of Docker and
 Kubernetes. The Makefile and Docker file included installs all the
 necessary dependecies to creating pods,services and deployments. This
