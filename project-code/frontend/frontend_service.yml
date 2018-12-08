@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: yelplabel_frontend
+  name: yelplabel-frontend
   labels:
     app: yelplabel
     tier: frontend
@@ -20,7 +20,7 @@ spec:
 kind: Deployment
 apiVersion: apps/v1beta1
 metadata:
-  name: yelplabel_frontend
+  name: yelplabel-frontend
 spec:
   selector:
     matchLAbels:
@@ -34,16 +34,16 @@ spec:
         tier: frontend
     spec:
       containers:
-      - name: yelplabel_frontend
+      - name: yelplabel-frontend
         image: kn45678/project_frontend
         imagePullPolicy: Always
         env:
-       - name: KAFKA_BROKER_IP
-         value: KAFKA1_SERVICE_HOST
-         name: KAFKA_BROKER_PORT
-         value: KAFKA1_SERVICE_PORT
-         name: PORT
-         value: "8080"
+        - name: KAFKA_BROKER_IP
+          value: KAFKA1_SERVICE_HOST
+        - name: KAFKA_BROKER_PORT
+          value: KAFKA1_SERVICE_PORT
+        - name: PORT
+          value: "8080"
         ports:
         - name: http-server
           containerPort: 8080
