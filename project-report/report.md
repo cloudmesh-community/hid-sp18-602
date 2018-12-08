@@ -260,7 +260,7 @@ In this frontend, the main.py is developed using python flask and it uses Kafka 
 service an external IP is provided which enables the user to access outside
 of the cluster through a web-browser.
 
-###Kafka Message Broker
+### Kafka Message Broker
 The kafka message broker is used to communicate between frontend and backend microservices through producer and consumer concept. The kafka-python package is used to build producer and consumer. The docker-compose file for kafka and zookeeper can be deployed on kubernetes.
 
 ### Backend Microservice
@@ -276,17 +276,17 @@ The `yelp_images.py` has 4 functions `query_api()`, `get_business()`,
 `search()` and `request()`; As the given location and term are passed to
 `query_api`, it sends the information to search function. The search
 function sends a GET request (GET
-https://api.yelp.com/v3/businesses/search) with parameters term, location
+`https://api.yelp.com/v3/businesses/search`) with parameters term, location
 and search limit equal to 10 in the json object. The JSON object
 response for the GET request is a dictionary type and is returned to
 calling the function. The `query_api()` stores each business list into
 businesses dictionary. This business ist consist of several other parameters like rating, price, id, categories, location details,
 review count and so on. But yelp-fusion offers an exclusive option to get
 more details of each business via getting Request (GET
-https://api.yelp.com/v3/businesses/id) with business id. Therefore, for
+`https://api.yelp.com/v3/businesses/id`) with business id. Therefore, for
 each business, business id is extracted and passed to `get_business`. In
 this function, a request is sent with business path
-https://api.yelp.com/v3/businesses/ and business id is appended to form
+`https://api.yelp.com/v3/businesses/` and business id is appended to form
 the appropriate URL for the request. The response object for this
 request consists of details specific to that business only, which
 includes open hours, photos and reviews. For this project, we require
