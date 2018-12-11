@@ -6,7 +6,7 @@
 | Indiana University Bloomington
 | hid: sp18-616-02
 | github: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/edit/master/project-report/report.md)
-| code: [:cloud:] (https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code)
+| code: [:cloud:](https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code)
 
 ---
 
