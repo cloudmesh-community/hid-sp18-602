@@ -1,4 +1,4 @@
-# Cloud AutoML  :smiley: sp18-616-02 
+# Cloud AutoML
 
 | Keerthi Naredla
 | knaredla@iu.edu
