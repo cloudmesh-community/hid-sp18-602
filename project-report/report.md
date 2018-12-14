@@ -1,5 +1,5 @@
 
-# Scalable Microservices to Label yelp images using Kuberenets :smiley: sp18-616-02
+# Scalable Microservices to Label yelp images using Kuberenets
 
 | Keerthi Naredla
 | knaredla@iu.edu
