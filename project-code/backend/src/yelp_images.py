@@ -25,8 +25,7 @@ except ImportError:
 # Yelp Fusion API now uses private keys to authenticate requests (API Key)
 # You can find it on https://www.yelp.com/developers/v3/manage_app
 
-API_KEY="A1eOA3dCo_jbecHCaYM9x03KrEH_inyvC3ywbieX8asv9gw8WJDJOi35ve8c0Jxpu3EXJGn4GQ73peAb1O1PqsHNgKVCilbhtN3F0BM7SxmXep1lw0YNFjdg-dz1W3Yx" 
-
+API_KEY="None"
 
 # API constants, you shouldn't have to change these.
 API_HOST = 'https://api.yelp.com'
