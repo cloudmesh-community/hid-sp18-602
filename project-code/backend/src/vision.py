@@ -1,7 +1,7 @@
 import json
 from googleapiclient import discovery
 
-API_KEY='AIzaSyDASvlgiXOKlf9Spr183d-ITKkWi844nII'
+API_KEY="NONE"
 DISCOVERY_URL='https://{api}.googleapis.com/$discovery/rest?version={apiVersion}'
 
 
