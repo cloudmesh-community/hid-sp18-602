@@ -4,39 +4,31 @@ owner:
   lastname: "naredla"
   hid: "hid-sp18-602"
   community: "e616"
-  semester:"sp18"
+  semester: "sp18"
   profile:
-  - url: https://github.com/Keerthi4308
-Assignments:
-    - title: Eve Rest Service
-      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/eve
-      
-    - title:Write and execute Swagger service 
-      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger
-      
-    - title: Configure Raspberrypi (burn SD card with etcher, configure pi network ip address and contribute to a tutorial)
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/sd-card-windows.md
-      
-    - title: Spinnaker
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-spinnaker.md
-    - title: Cloud AutoML
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-cloudautoml.md
-    - title: Google Load Balancing
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-googleloadbalancing.md
-    - title: Google Stack driver
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-googlestackdriver.md
-    - title: AWS CodeStar
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-awscodestar.md
-      
-    - title: Rest API for Openstack Galnce
-      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger-docker
- 
-    
+sections:
+  - title: Eve Rest Service
+    url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/eve
+  - title: Write and execute Swagger service
+    url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger
+  - title: Configure Raspberrypi (burn SD card with etcher, configure pi network ip address and contribute to a tutorial)
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/sd-card-windows.md
+  - title: Spinnaker
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-spinnaker.md
+  - title: Cloud AutoML
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-cloudautoml.md
+  - title: Google Load Balancing
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-googleloadbalancing.md
+  - title: Google Stack driver
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-googlestackdriver.md
+  - title: AWS CodeStar
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/technology/abstract-awscodestar.md
+  - title: Rest API for Openstack Galnce
+    url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/swagger-docker
 chapter:
-    - title: CloudAutoML
-      url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/paper/paper.md
-      
+  - title: CloudAutoML
+    url: https://github.com/cloudmesh-community/hid-sp18-602/blob/master/paper/paper.md
 project:
-    - title: Scalable Microservices to Label yelp images using Kuberenets 
-      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-report
-      url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code
+  - title: Scalable Microservices to Label yelp images using Kuberenets
+    url: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-report/report.md
+    code: https://github.com/cloudmesh-community/hid-sp18-602/tree/master/project-code
