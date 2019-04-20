@@ -1,5 +1,7 @@
 # Cloud AutoML
 
+:o: citations not done with [ ]
+
 | Keerthi Naredla
 | knaredla@iu.edu
 | Indiana University, Bloomington
