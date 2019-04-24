@@ -205,18 +205,24 @@ gcloud command line tool, with the command "gcloud init". Then it is
 required to set up the cluster to run the project. The cluster is built on
 Google Cloud, for billing, is activated on your Service Account. To set up
 the cluster, it is required to choose the compute zone. The command
-"gcloud config set compute/zone \<zone-name\>" sets up the particular
+"gcloud config set compute/zone `<zone-name>`" sets up the particular
 zone you would want your cluster to locate at. This is important because
 it provides less latency when connecting to the cluster from gcloud, or
 via Cloud SDK. The zone-name would like east1-b,central1-a and so on,
 and it is better to choose according to location, although the features
 offered doesn't differ much. The actual cluster can be created using the
-command "gcloud container cluster create \<cluster-name\> --num-nodes
-\<num\> --scope cloud-platform". This command specifies cluster name and
+command 
+
+```bash
+$ gcloud container cluster create \
+         <cluster-name> --num-nodes \
+         <num> --scope cloud-platform 
+```
+This command specifies cluster name and
 the number of nodes created for each zone of that cluster. After
 creating a cluster, the cluster should be authorized with the service
 account, in order to get access to all the api's. Hence the command "
-gcloud container clusters get-credentials \<cluster-name\>". If the
+gcloud container clusters get-credentials `<cluster-name>`". If the
 cluster is perfectly created then you should be able to get the correct
 information for the cluster created by activating "kubectl
 cluster-info". Since initially, there are no pods, services,
@@ -226,45 +232,50 @@ project.
 
 ### Frontend Microservices
 
-The front end of the application plays a key role as the load balancer
-service for the entire application. It is basically a dynamic web-page,
-which allows the user to enter the location, for example, San Francisco, CA
-and business like food, dinner. Based on these inputs, photos are fetched.
-The technologies used for the web-page along is python, html, javascript, and CSS. The below paragraph explains briefly about each of these
-technologies and how they have been used in te frontend of this
-application.
+The front end of the application plays a key role as the load balancer service
+for the entire application. It is basically a dynamic web-page, which allows the
+user to enter the location, for example, San Francisco, CA and business like
+food, dinner. Based on these inputs, photos are fetched. The technologies used
+for the web-page along is python, html, javascript, and CSS. The below paragraph
+explains briefly about each of these technologies and how they have been used in
+te frontend of this application.
 
--   **Python** Python web-development framework Flask is used to make
-    the server calls to storage.py.  Flask package is a micro framework it can be implemented on top of any backend service with no restrictions like particular tools, libraries, or extensions are required. Moreover, Flask supports RESTful requests for dispatching GET, POST. Hence it is very
-    useful in our project to easily make use of API to communicate and
-    receive from the backend.
+-  **Python** Python web-development framework Flask is used to make the server
+   calls to storage.py.  Flask package is a micro framework it can be implemented
+   on top of any backend service with no restrictions like particular tools,
+   libraries, or extensions are required. Moreover, Flask supports RESTful requests
+   for dispatching GET, POST. Hence it is very useful in our project to easily make
+   use of API to communicate and receive from the backend.
 
--   **Javascript** JavaScript is a core-technology mainly used to build
-    dynamic web-pages. There are different frameworks such as vue.js,
-    AngularJS, ReactJS, to design creative and interactive web pages. In this frontend javascript is extended via a material design file in
-    storage.googleapis.com. This really reduces the time, effort and gives a world-class view for the webpage.
+-  **Javascript** JavaScript is a core-technology mainly used to build dynamic
+   web-pages. There are different frameworks such as vue.js, AngularJS, ReactJS, to
+   design creative and interactive web pages. In this frontend javascript is
+   extended via a material design file in storage.googleapis.com. This really
+   reduces the time, effort and gives a world-class view for the webpage.
 
--   **HTML** HTML Hypertext Markup Language is useful to add content to
-    the webpage. To make the web pages dynamic and add style to the page,Javascript, CSS is used. The HTML is the base of the webpage
-    no matter any web-technologies out there, they must be added on top
-    of HTML base page.
+-  **HTML** HTML Hypertext Markup Language is useful to add content to the
+   webpage. To make the web pages dynamic and add style to the page,Javascript, CSS
+   is used. The HTML is the base of the webpage no matter any web-technologies out
+   there, they must be added on top of HTML base page.
 
--   **CSS**
+-  **CSS** Cascading Style Sheets (CSS) is used for styling the HTML webpage,
+   with respect to display and it is added either internal with
+   `<style><style>` tags or external using CSS file. The CSS for
+   this project is taken from google style package, google apis for
+   fonts, material icons and for other design can be selectively picked
+   from material designs stored at google storage.
 
-    Cascading Style Sheets (CSS) is used for styling the HTML webpage,
-    with respect to display and it is added either internal with
-    \<style\>\</style\> tags or external using CSS file. The CSS for
-    this project is taken from google style package, google apis for
-    fonts, material icons and for other design can be selectively picked
-    from material designs stored at google storage.
-
-In this frontend, the main.py is developed using python flask and it uses Kafka producer and consumer to communicate with the backend service. As the frontend service is deployed as a load-balancer
-service an external IP is provided which enables the user to access outside
-of the cluster through a web-browser.
+In this frontend, the main.py is developed using python flask and it uses Kafka
+producer and consumer to communicate with the backend service. As the frontend
+service is deployed as a load-balancer service an external IP is provided which
+enables the user to access outside of the cluster through a web-browser.
 
 ### Kafka Message Broker
 
-The kafka message broker is used to communicate between frontend and backend microservices through producer and consumer concept. The kafka-python package is used to build producer and consumer. The docker-compose file for kafka and zookeeper can be deployed on kubernetes.
+The kafka message broker is used to communicate between frontend and backend
+microservices through producer and consumer concept. The kafka-python package is
+used to build producer and consumer. The docker-compose file for kafka and
+zookeeper can be deployed on kubernetes.
 
 ### Backend Microservice
 
@@ -275,27 +286,25 @@ main.py,`yelp_label.py` and vision.py. Each is further
 modularized with function, which is briefly explained in below
 paragraphs.
 
-The `yelp_images.py` has 4 functions `query_api()`, `get_business()`,
-`search()` and `request()`; As the given location and term are passed to
-`query_api`, it sends the information to search function. The search
-function sends a GET request (GET
-`https://api.yelp.com/v3/businesses/search`) with parameters term, location
-and search limit equal to 10 in the json object. The JSON object
-response for the GET request is a dictionary type and is returned to
-calling the function. The `query_api()` stores each business list into
-businesses dictionary. This business ist consist of several other parameters like rating, price, id, categories, location details,
-review count and so on. But yelp-fusion offers an exclusive option to get
-more details of each business via getting Request (GET
-`https://api.yelp.com/v3/businesses/id`) with business id. Therefore, for
-each business, business id is extracted and passed to `get_business`. In
-this function, a request is sent with business path
-`https://api.yelp.com/v3/businesses/` and business id is appended to form
-the appropriate URL for the request. The response object for this
-request consists of details specific to that business only, which
-includes open hours, photos and reviews. For this project, we require
-only photos of each business, hence the URLs of the photos for all the
-businesses are appended to a list. All the photos are returned to the
-calling function in main.py.
+The `yelp_images.py` has 4 functions `query_api()`, `get_business()`, `search()`
+and `request()`; As the given location and term are passed to `query_api`, it
+sends the information to search function. The search function sends a GET
+request (GET `https://api.yelp.com/v3/businesses/search`) with parameters term,
+location and search limit equal to 10 in the json object. The JSON object
+response for the GET request is a dictionary type and is returned to calling the
+function. The `query_api()` stores each business list into businesses
+dictionary. This business ist consist of several other parameters like rating,
+price, id, categories, location details, review count and so on. But yelp-fusion
+offers an exclusive option to get more details of each business via getting
+Request (GET `https://api.yelp.com/v3/businesses/id`) with business id.
+Therefore, for each business, business id is extracted and passed to
+`get_business`. In this function, a request is sent with business path
+`https://api.yelp.com/v3/businesses/` and business id is appended to form the
+appropriate URL for the request. The response object for this request consists
+of details specific to that business only, which includes open hours, photos and
+reviews. For this project, we require only photos of each business, hence the
+URLs of the photos for all the businesses are appended to a list. All the photos
+are returned to the calling function in main.py.
 
 In vision.py, the authorization to access Vision API is set through
 Google Credentials python package. The authorization done at this step
@@ -312,58 +321,63 @@ and so on. The label annotation is returned to the calling function for
 the sent image url.
 
 To summarize, main.py brings together all the above functionalities, it
-retrieves the data from `yelp_images.py`, passes photos to vision.py to
-label each one of them, after completion it produces to labeled images to frontend service.
+retrieves the data from `yelp_images.py`, passes photos to vision.py to label
+each one of them, after completion it produces to labeled images to frontend
+service.
 
 ## Results
 
 ![yelp_images_labeled](images/result.PNG){#fig:yelp_images_labeled}
-```
-+@fig:yelp_images_labeled is the result of this project when user 
+
+@fig:yelp_images_labeled shows the result of this project when user 
 provided input of business=food and location=Indianapolis
 
-![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
-```
-
 The results of the project are to display labeled images from Yelp photos
-dataset. And this achieved by populating the browser with the label and
-the image_url pair received by Kafka consumer on topic labels. As the cloud-vision api is a pre-trained model on a huge dataset of Google, the label detection is with on average measure of 0.8161305 scores, and 0.8161305 topicality. For this application, images of top 10 business for user input business category and location are generated and the image. annotate
-request is reiterated 3 times to make sure highly accurate label
-is detected for the image, if not in a single request.
+dataset. And this achieved by populating the browser with the label and the
+image_url pair received by Kafka consumer on topic labels. As the cloud-vision
+api is a pre-trained model on a huge dataset of Google, the label detection is
+with on average measure of 0.8161305 scores, and 0.8161305 topicality. For this
+application, images of top 10 business for user input business category and
+location are generated and the image. annotate request is reiterated 3 times to
+make sure highly accurate label is detected for the image, if not in a single
+request.
 
 ## Benchmark 
 
 ![with_and_without_kubernetes](images/benchmark.PNG){#fig:with_and_without_kubernetes}
-```
-+@fig:Throughput calculated based on timestamp with and without kubernetes on Google Cloud Platform
+
+Figure @fig:with_and_without_kubernetes shows the throughput calculated based on
+timestamp with and without kubernetes on Google Cloud Platform
+
 
 ![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
-```
 
 ![google_cloud_log](images/gc.PNG){#fig:google_cloud_log}
-```
-+@fig:Throughput calculated based on timestamp in container logs when deployed on Google Cloud
+
+@fig:#fig:google_cloud_log shows the throughput calculated based on timestamp in
+container logs when deployed on Google Cloud
 
 ![yelp_images_labeled](results/result.PNG){#fig:yelp_images_labeled}
-```
-![aws_log](images/aws.PNG){#fig:aws_log}
-```
-+@fig:Throughput calculated based on timestamp in container logs when deployed on AWS
 
 ![aws_log](images/aws.PNG){#fig:aws_log}
-```
-![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
-```
-+@fig:Stat from kubernetes dashboard when application is deployed on Google Cloud
+
+
+@fig:Throughput calculated based on timestamp in container logs when deployed on AWS
+
+![aws_log](images/aws.PNG){#fig:aws_log}
 
 ![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
-```
-![aws_stat](images/awsStat.PNG){#fig:aws_stat}
-```
-+@fig:Stat from kubernetes dashboard when application is deployed on AWS
+
+@fig:#fig:aws_log shows the stat from kubernetes dashboard when application is deployed on Google Cloud
+
+![google_cloud_stat](images/cloudStat.PNG){#fig:google_cloud_stat}
 
 ![aws_stat](images/awsStat.PNG){#fig:aws_stat}
-```
+
+@fig:fig:aws_stat shows the stat from kubernetes dashboard when application is deployed on AWS
+
+![aws_stat](images/awsStat.PNG){#fig:aws_stat}
+
 The applciation is deployed using kubernetes on google cloud platform and AWS platform. The benchmark analysis is based on the comparision of throughput which is time taken for the to label images by the backed service and display to the user. The x-axis of the first 2 graphs is the timestamp difference and on y-axis the number of buisness from which images are retrieved for the given category. Apart from that, when the applciation is deployed on average it takes at least of 55 seconds to generate the external IP address. The graph showing usage of the resources is captured from kuberenets dashboard. The benchmark for this project
 extensively depends on Cloud Vision API as the batch processing for the images
 is limited and this can effect the throughput for the label-detection and
