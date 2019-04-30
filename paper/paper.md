@@ -15,7 +15,7 @@ Keywords: Cloud AutoML, Neural, Google Cloud, Vision
 
 ---
 
-Cloud AutoML is the state-of -the -art tool to design high-quality
+Cloud AutoML is the state-of-the-art tool to design high-quality
 training and large-scale capable custom ML models. Using this, a user
 with no or less ML knowledge can build ML model in short span of time,
 low-cost hardware and infrastructure. It is a revolution by Google team
